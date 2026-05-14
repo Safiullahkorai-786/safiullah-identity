@@ -1,1 +1,92 @@
 
+<!-- Optimized Knowledge Graph / Person Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://linktr.ee/safiullahkorai#profilepage",
+      "url": "https://linktr.ee/safiullahkorai",
+      "name": "Safiullah Korai",
+      "mainEntity": {
+        "@id": "https://linktr.ee/safiullahkorai#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://linktr.ee/safiullahkorai#person",
+      "name": "Safiullah Korai",
+      "alternateName": [
+        "Shahzaib",
+        "safiullahkorai",
+        "SafiullahKorai"
+      ],
+      "description": "Software Engineer, Flutter Developer, Technical Writer, Research Contributor, and Community Builder from Pakistan.",
+      "url": "https://linktr.ee/safiullahkorai",
+      "image": "https://media.licdn.com/dms/image/v2/D4D03AQEXq2aLTU03sQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1720987699577?e=2147483647&v=beta&t=q0dq85bOB75TqG64x2ACgn1UzSUHztKCKrg3F0Uozi0",
+      "nationality": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Pano Aqil, Sindh, Pakistan"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Mehran University of Engineering and Technology"
+      },
+      "jobTitle": [
+        "Software Engineer",
+        "Flutter Developer",
+        "Technical Writer",
+        "Community Builder"
+      ],
+      "knowsAbout": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Supabase",
+        "Mobile App Development",
+        "Technical Writing",
+        "Open Source",
+        "Artificial Intelligence",
+        "Developer Communities",
+        "Research"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/safiullah-korai",
+        "https://github.com/Safiullahkorai-786",
+        "https://g.dev/safiullah-korai",
+        "https://www.crunchbase.com/person/safiullah-korai",
+        "https://orcid.org/0009-0008-2198-4674",
+        "https://scholar.google.com/citations?user=r9UKHn4AAAAJ",
+        "https://www.researchgate.net/profile/Safiullah-Korai",
+        "https://www.webofscience.com/wos/author/record/PVE-2819-2026",
+        "https://www.kaggle.com/safiullahkorai",
+        "https://stackoverflow.com/users/18379519/safiullah-korai",
+        "https://x.com/SafiullahKorai",
+        "https://www.instagram.com/safiullah.korai",
+        "https://www.facebook.com/safiullahkorai.official",
+        "https://www.threads.com/@safiullah.korai",
+        "https://bsky.app/profile/safiullahkorai.bsky.social",
+        "https://youtube.com/@safiullah-korai",
+        "https://medium.com/@safiullahkorai",
+        "https://dev.to/safiullahkorai",
+        "https://safiullahkorai.hashnode.dev",
+        "https://hackernoon.com/u/safiullahkorai",
+        "https://substack.com/@safiullahkorai",
+        "https://speakerdeck.com/safiullahkorai",
+        "https://www.producthunt.com/@safiullahkorai",
+        "https://www.indiehackers.com/safiullahkorai",
+        "https://www.behance.net/safiullahkorai",
+        "https://wellfound.com/u/safiullah-korai",
+        "https://topmate.io/safiullahkorai",
+        "https://about.me/safiullahkorai",
+        "https://gravatar.com/safiullahkorai"
+      ]
+    }
+  ]
+}
+</script>
