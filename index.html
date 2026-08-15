@@ -6,23 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- Primary Meta -->
-  <title>Safiullah Korai — AI Engineer & Flutter Developer</title>
-  <meta name="description" content="Safiullah Korai is an AI Engineer, Flutter Developer, Technical Writer, Research Contributor, and Community Builder from Pakistan." />
+  <title>Safiullah Korai — Software Engineer & AI Engineer</title>
+  <meta name="description" content="Safiullah Korai is a Software Engineer, AI Engineer, Flutter Developer, Technical Writer, Research Contributor, and Community Builder from Pakistan." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://safiullahkorai.com" />
 
   <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Safiullah Korai — AI Engineer & Flutter Developer" />
+  <meta property="og:title" content="Safiullah Korai — Software Engineer & AI Engineer" />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://safiullahkorai.com" />
   <meta property="og:image" content="https://safiullahkorai-786.github.io/safiullah-identity/assets/safiullah-korai.png" />
-  <meta property="og:description" content="AI Engineer, Flutter Developer, Technical Writer, and Community Builder from Pakistan." />
+  <meta property="og:description" content="Software Engineer, AI Engineer, Flutter Developer, Technical Writer, and Community Builder from Pakistan." />
   <meta property="og:site_name" content="Safiullah Korai" />
 
-  <!-- Favicon (optional) -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>" />
 
-  <!-- Google Fonts (optional, for cleaner look) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
@@ -46,7 +46,7 @@
           "@id": "https://safiullahkorai.com#person",
           "name": "Safiullah Korai",
           "alternateName": ["Shahzaib", "safiullahkorai", "SafiullahKorai"],
-          "description": "AI Engineer, Flutter Developer, Technical Writer, Research Contributor, and Community Builder from Pakistan.",
+          "description": "Software Engineer, AI Engineer, Flutter Developer, Technical Writer, Research Contributor, and Community Builder from Pakistan.",
           "url": "https://safiullahkorai.com",
           "email": "hello@safiullahkorai.com",
           "image": "https://safiullahkorai-786.github.io/safiullah-identity/assets/safiullah-korai.png",
@@ -63,6 +63,7 @@
             "name": "Mehran University of Engineering and Technology"
           },
           "jobTitle": [
+            "Software Engineer",
             "AI Engineer",
             "Flutter Developer",
             "Technical Writer",
@@ -156,26 +157,84 @@
       box-sizing: border-box;
     }
 
+    /* Light theme (default) */
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --badge-bg: #e2e8f0;
+      --badge-text: #1e293b;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      --link: #2563eb;
+      --toggle-bg: #e2e8f0;
+      --toggle-icon: #475569;
+    }
+
+    /* Dark theme */
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #334155;
+      --badge-bg: #334155;
+      --badge-text: #e2e8f0;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      --link: #60a5fa;
+      --toggle-bg: #334155;
+      --toggle-icon: #94a3b8;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f8fafc;
+      background: var(--bg);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem 1.5rem;
-      color: #0f172a;
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .card {
       max-width: 700px;
       width: 100%;
-      background: white;
+      background: var(--card-bg);
       border-radius: 2rem;
       padding: 3rem 2.5rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow);
       text-align: center;
-      transition: transform 0.2s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: var(--toggle-bg);
+      border: none;
+      border-radius: 9999px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--toggle-icon);
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
     }
 
     .avatar {
@@ -183,9 +242,10 @@
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #e2e8f0;
+      border: 4px solid var(--border);
       margin-bottom: 1.5rem;
-      background: #f1f5f9;
+      background: var(--badge-bg);
+      transition: border-color 0.3s ease;
     }
 
     h1 {
@@ -193,39 +253,42 @@
       font-weight: 700;
       letter-spacing: -0.025em;
       margin-bottom: 0.25rem;
+      color: var(--text);
     }
 
     .tagline {
       font-size: 1.1rem;
-      color: #475569;
+      color: var(--text-secondary);
       font-weight: 400;
       margin-bottom: 0.5rem;
     }
 
     .badge {
       display: inline-block;
-      background: #e2e8f0;
-      color: #1e293b;
+      background: var(--badge-bg);
+      color: var(--badge-text);
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.25rem 0.75rem;
       border-radius: 9999px;
       margin-bottom: 1.25rem;
       letter-spacing: 0.02em;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .bio {
       font-size: 1rem;
       line-height: 1.7;
-      color: #334155;
+      color: var(--text-secondary);
       max-width: 500px;
       margin: 0 auto 2rem auto;
     }
 
     .bio a {
-      color: #2563eb;
+      color: var(--link);
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.3s ease;
     }
 
     .bio a:hover {
@@ -262,7 +325,7 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* Brand colours */
+    /* Brand colours (stay consistent in dark mode) */
     .btn-linkedin {
       background: #0a66c2;
     }
@@ -277,6 +340,13 @@
     }
     .btn-email {
       background: #2563eb;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
     }
 
     /* Responsive */
@@ -295,6 +365,13 @@
         width: 96px;
         height: 96px;
       }
+      .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -302,6 +379,11 @@
 <body>
 
   <div class="card">
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      🌙
+    </button>
 
     <!-- Avatar / Profile Image -->
     <img
@@ -312,7 +394,7 @@
     />
 
     <h1>Safiullah Korai</h1>
-    <p class="tagline">AI Engineer &middot; Flutter Developer</p>
+    <p class="tagline">Software Engineer &middot; AI Engineer</p>
     <span class="badge">🇵🇰 Pakistan</span>
 
     <p class="bio">
@@ -322,7 +404,7 @@
       <a href="mailto:hello@safiullahkorai.com">hello@safiullahkorai.com</a>
     </p>
 
-    <!-- Social Buttons — only the most active/professional ones -->
+    <!-- Social Buttons -->
     <div class="social-grid">
 
       <!-- LinkedIn -->
@@ -385,11 +467,32 @@
 
     </div>
 
-    <p style="margin-top: 2rem; font-size: 0.8rem; color: #94a3b8;">
+    <p class="footer">
       &copy; 2026 Safiullah Korai &bull; Built with &hearts;
     </p>
 
   </div>
+
+  <script>
+    // Theme Toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+      toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
 
 </body>
 </html>
