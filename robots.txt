@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://safiullahkorai-786.github.io/safiullah-identity/sitemap.xml
+Sitemap: https://safiullahkorai.com/sitemap.xml
