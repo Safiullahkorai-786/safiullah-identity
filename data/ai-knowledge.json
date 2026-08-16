@@ -1,0 +1,14 @@
+{
+  "purpose": "Approved public knowledge for the future Ask Safiullah assistant.",
+  "profile_source": "data/profile.json",
+  "content_sources": ["data/projects.json", "data/achievements.json", "data/certificates.json", "data/articles.json", "faq.html"],
+  "answer_policy": [
+    "Only use approved public website information.",
+    "Do not invent achievements, projects, roles, dates, credentials or personal details.",
+    "Do not expose private information or secrets.",
+    "If the answer is not known from the approved data, say so and direct the visitor to the Contact page when appropriate.",
+    "Prefer concise, factual answers with links to the relevant website page."
+  ],
+  "future_endpoint": "/api/ask",
+  "future_provider": "Cloudflare Worker + Workers AI"
+}
