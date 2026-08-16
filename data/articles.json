@@ -1,0 +1,8 @@
+{
+  "articles": [],
+  "publishing_strategy": {
+    "first_party": "Publish new original articles on safiullahkorai.com first whenever practical.",
+    "syndication": "Existing and future articles may also be distributed to Medium, DEV, Hashnode, Substack and HackerNoon.",
+    "canonical": "When the website is the original source, syndicated copies should use the website article URL as their canonical source."
+  }
+}
