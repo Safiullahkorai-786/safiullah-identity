@@ -1,1 +1,474 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Achievements — Safiullah Korai</title><meta name="description" content="Achievements, community milestones and memorable work by Safiullah Korai."><link rel="canonical" href="https://safiullahkorai.com/achievements.html"><link rel="icon" href="assets/safiullah-korai.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body><header class="site-header"><div class="container nav"><a class="brand" href="index.html"><span class="brand-mark">SK</span><span>Safiullah Korai</span></a><nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a class="active" href="achievements.html">Achievements</a><a href="certificates.html">Certificates</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a></nav><div class="nav-actions"><button class="icon-btn theme-toggle" aria-label="Toggle theme">◐</button><button class="menu-btn" aria-label="Open menu">☰</button></div><nav class="mobile-nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="certificates.html">Certificates</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a></nav></div></header><main><section class="page-hero"><div class="container"><span class="kicker">Milestones</span><h1>The moments that shaped the journey.</h1><p>Community work, leadership, events and small wins that became part of the bigger story.</p></div></section><section class="section" style="padding-top:20px"><div class="container"><div class="grid-3" data-achievements></div></div></section><section class="section alt"><div class="container"><div class="empty"><strong>Photo-ready by design.</strong><span>Add event and achievement images to <code>assets/achievements/</code>, then register them in the gallery data when you're ready.</span></div></div></section></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">SK</span><span>Safiullah Korai</span></a></div><div class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@safiullahkorai.com">Email</a></div></div><p class="copyright">© <span class="year"></span> Safiullah Korai.</p></div></footer><script src="js/site.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Achievements — Safiullah Korai</title>
+  <meta name="description" content="My achievements and accomplishments">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f9fafb;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    /* ==================== NAVIGATION STYLES ==================== */
+    .site-nav {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #111827;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+
+    .brand:hover {
+      color: #3730a3;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1f2937;
+      padding: 0.5rem 0.875rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+      background: #eef2ff;
+      color: #3730a3;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-toggle:focus {
+      outline: 2px solid #3730a3;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .nav-toggle .bar {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: #111827;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    /* Hamburger animation */
+    .nav-toggle.active .bar:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* ==================== TABLET STYLES (768px - 1024px) ==================== */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0.7rem 1rem;
+      }
+
+      .brand {
+        font-size: 1.15rem;
+      }
+
+      .nav-links a {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ==================== MOBILE STYLES (max-width: 768px) ==================== */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-wrap: wrap;
+        padding: 0.6rem 1rem;
+      }
+
+      .brand {
+        font-size: 1.1rem;
+        flex: 1;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15);
+        flex-direction: column;
+        padding: 0.75rem 0;
+        display: none;
+        min-width: 100%;
+        border-radius: 0 0 8px 8px;
+        animation: slideDown 0.3s ease;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 0.75rem 1.5rem;
+        display: block;
+        border-radius: 0;
+        transition: all 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus {
+        background: #eef2ff;
+        padding-left: 2rem;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    /* ==================== SMALL MOBILE STYLES (max-width: 480px) ==================== */
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0.5rem 0.75rem;
+      }
+
+      .brand {
+        font-size: 1rem;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15);
+        flex-direction: column;
+        padding: 1rem 0;
+        display: none;
+        min-width: 100%;
+        border-radius: 0;
+        overflow-y: auto;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+      }
+
+      .nav-toggle .bar {
+        width: 22px;
+        height: 2px;
+        margin: 4px 0;
+      }
+    }
+
+    /* ==================== MAIN CONTENT ==================== */
+    .container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      margin-bottom: 2.5rem;
+      color: #111827;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .achievement {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border-left: 4px solid #3730a3;
+    }
+
+    .achievement:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .achievement h2 {
+      margin-bottom: 0.75rem;
+      color: #3730a3;
+      font-size: 1.25rem;
+    }
+
+    .achievement p {
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    /* Tablet adjustments */
+    @media (max-width: 1024px) {
+      .container {
+        margin: 2rem auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .achievement {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .container {
+        margin: 1.5rem auto;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .achievement {
+        padding: 1.25rem;
+      }
+
+      .achievement h2 {
+        font-size: 1.1rem;
+      }
+
+      .achievement p {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* Small mobile adjustments */
+    @media (max-width: 480px) {
+      .container {
+        margin: 1rem auto;
+        padding: 0 0.75rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .achievement {
+        padding: 1rem;
+        border-left-width: 3px;
+      }
+
+      .achievement h2 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="site-nav" role="navigation" aria-label="Main">
+    <div class="nav-container">
+      <a class="brand" href="#home">Safiullah Korai</a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>🏆 Achievements</h1>
+
+    <div class="achievements-grid">
+      <div class="achievement">
+        <h2>Achievement 1</h2>
+        <p>Add your achievements here. This page showcases your accomplishments and awards. You can include certifications, awards, or major milestones you've achieved in your career.</p>
+      </div>
+
+      <div class="achievement">
+        <h2>Achievement 2</h2>
+        <p>Update this section with your specific achievements, certifications, or awards. Include the date, description, and any relevant details about each achievement.</p>
+      </div>
+
+      <div class="achievement">
+        <h2>Achievement 3</h2>
+        <p>Include dates, descriptions, and any relevant details about each achievement. Highlight your professional growth and accomplishments with pride.</p>
+      </div>
+
+      <div class="achievement">
+        <h2>Achievement 4</h2>
+        <p>You can add as many achievements as you want. The grid layout will automatically adjust to fit your content responsively across all devices.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelector('.nav-links');
+
+      if (!toggle || !links) return;
+
+      // Toggle menu on button click
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = links.classList.toggle('open');
+        toggle.classList.toggle('active', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Close menu when clicking on a link
+      links.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function () {
+          links.classList.remove('open');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!links.classList.contains('open')) return;
+        const isClickInside = e.target.closest('.nav-container');
+        if (!isClickInside) {
+          links.classList.remove('open');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close menu on escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && links.classList.contains('open')) {
+          links.classList.remove('open');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close mobile menu on window resize to desktop
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768 && links.classList.contains('open')) {
+          links.classList.remove('open');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
