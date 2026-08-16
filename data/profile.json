@@ -1,0 +1,17 @@
+{
+  "name": "Safiullah Korai",
+  "headline": "Software Engineer · Flutter Developer · Technical Writer",
+  "direction": "Building toward AI Engineering",
+  "location": "Pakistan",
+  "email": "hello@safiullahkorai.com",
+  "website": "https://safiullahkorai.com",
+  "bio": "Safiullah Korai is a Software Engineer, Flutter Developer and Technical Writer building toward AI Engineering. His work spans software development, mobile applications, technical writing, community initiatives and continuous learning.",
+  "focus": ["Software Engineering", "Flutter", "AI Engineering", "Technical Writing"],
+  "public_links": {
+    "github": "https://github.com/Safiullahkorai-786",
+    "linkedin": "https://www.linkedin.com/in/safiullah-korai",
+    "instagram": "https://www.instagram.com/safiullah.korai",
+    "medium": "https://medium.com/@safiullahkorai"
+  },
+  "assistant_rules": "Only answer from approved public website data. Never invent private, sensitive, financial, contact, academic or personal details. If information is unavailable, say that it is not currently listed on the website."
+}
