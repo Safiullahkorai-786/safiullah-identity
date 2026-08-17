@@ -43,6 +43,12 @@
         </a>
       `).join('');
 
+      const button = document.createElement('div');
+      button.className = 'actions';
+      button.style.marginTop = '24px';
+      button.innerHTML = '<a class="btn btn-secondary" href="blog.html">Explore all articles →</a>';
+      container.insertAdjacentElement('afterend', button);
+
       container.querySelectorAll('.reveal').forEach((element) => {
         if (window.observer) window.observer.observe(element);
         requestAnimationFrame(() => element.classList.add('visible'));
