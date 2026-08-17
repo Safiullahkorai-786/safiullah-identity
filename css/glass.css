@@ -1,0 +1,252 @@
+/*
+ * Site-wide premium glass layer.
+ * Keep this file separate so the visual system stays easy to maintain.
+ */
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(124, 156, 255, 0.075), transparent 28%),
+    radial-gradient(circle at 8% 55%, rgba(114, 230, 194, 0.035), transparent 26%),
+    var(--bg);
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(95px);
+}
+
+body::before {
+  width: 430px;
+  height: 430px;
+  top: 3%;
+  right: -220px;
+  background: rgba(124, 156, 255, 0.075);
+}
+
+body::after {
+  width: 380px;
+  height: 380px;
+  left: -220px;
+  top: 48%;
+  background: rgba(114, 230, 194, 0.045);
+}
+
+/* Light theme: white remains dominant; color is only a soft atmospheric shine. */
+body.light {
+  background:
+    radial-gradient(circle at 7% 5%, rgba(94, 132, 238, 0.055), transparent 25%),
+    radial-gradient(circle at 94% 18%, rgba(58, 190, 159, 0.038), transparent 23%),
+    radial-gradient(circle at 52% 72%, rgba(110, 145, 235, 0.028), transparent 30%),
+    linear-gradient(145deg, #ffffff 0%, #fbfcfe 48%, #f7faff 100%);
+}
+
+body.light::before {
+  width: 430px;
+  height: 430px;
+  top: 1%;
+  right: -220px;
+  background: rgba(88, 126, 235, 0.065);
+}
+
+body.light::after {
+  width: 380px;
+  height: 380px;
+  left: -220px;
+  top: 48%;
+  background: rgba(49, 196, 164, 0.035);
+}
+
+/* Frosted navigation */
+.site-header {
+  background: rgba(7, 9, 13, 0.52) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+}
+
+body.light .site-header {
+  background: rgba(255, 255, 255, 0.62) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 12px 40px rgba(43, 65, 95, 0.07);
+}
+
+.icon-btn,
+.menu-btn {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+body.light .icon-btn,
+body.light .menu-btn {
+  background: rgba(255, 255, 255, 0.56);
+  border-color: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 7px 22px rgba(40, 60, 90, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+/* Glass surfaces */
+.card,
+.about-photo,
+.feature-strip,
+.gallery-item,
+.site-footer,
+.eyebrow,
+.portrait-frame,
+.floating-note,
+.btn-secondary,
+.article-card,
+.contact-primary {
+  background: rgba(255, 255, 255, 0.045) !important;
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.018);
+  backdrop-filter: blur(20px) saturate(125%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+}
+
+body.light .card,
+body.light .about-photo,
+body.light .feature-strip,
+body.light .gallery-item,
+body.light .site-footer,
+body.light .eyebrow,
+body.light .portrait-frame,
+body.light .floating-note,
+body.light .btn-secondary,
+body.light .article-card,
+body.light .contact-primary {
+  background: rgba(255, 255, 255, 0.52) !important;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow:
+    0 18px 55px rgba(42, 62, 92, 0.075),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    inset 0 -1px 0 rgba(172, 193, 220, 0.10);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+}
+
+.card:hover,
+.gallery-item:hover,
+body.light .card:hover,
+body.light .gallery-item:hover {
+  border-color: rgba(124, 156, 255, 0.28) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body.light .card:hover,
+body.light .gallery-item:hover {
+  background: rgba(255, 255, 255, 0.66) !important;
+  box-shadow: 0 24px 70px rgba(42, 62, 92, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+/* Small surfaces and chips */
+.tag {
+  background: rgba(255, 255, 255, 0.045) !important;
+  backdrop-filter: blur(12px);
+}
+
+body.light .tag {
+  background: rgba(255, 255, 255, 0.48) !important;
+  border-color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.project-media {
+  background: linear-gradient(135deg, rgba(124, 156, 255, 0.10), rgba(114, 230, 194, 0.035), rgba(255, 255, 255, 0.015));
+}
+
+body.light .project-media {
+  background: linear-gradient(135deg, rgba(112, 145, 235, 0.065), rgba(76, 190, 164, 0.025), rgba(255, 255, 255, 0.40));
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.012);
+}
+
+body.light .feature {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.section.alt {
+  background: transparent !important;
+}
+
+.site-footer {
+  background: rgba(255, 255, 255, 0.025) !important;
+}
+
+body.light .site-footer {
+  background: rgba(255, 255, 255, 0.42) !important;
+}
+
+/* Writing cards: consistent breathing room on every viewport. */
+[data-posts] {
+  display: grid;
+  gap: 18px;
+}
+
+[data-posts] .article-card {
+  margin: 0 !important;
+}
+
+/* Keep the legal/FAQ pages elegant without making the surfaces too heavy. */
+.legal,
+.faq-list {
+  position: relative;
+}
+
+/* Existing Home glass gets only a restrained atmospheric boost from this global layer. */
+body.home-glass::before {
+  opacity: 0.45;
+}
+
+body.home-glass::after {
+  opacity: 0.42;
+}
+
+@media (max-width: 620px) {
+  body::before {
+    width: 300px;
+    height: 300px;
+    right: -170px;
+    filter: blur(75px);
+  }
+
+  body::after {
+    width: 270px;
+    height: 270px;
+    left: -170px;
+    filter: blur(75px);
+  }
+
+  body.light::before {
+    width: 300px;
+    height: 300px;
+    right: -175px;
+    filter: blur(72px);
+  }
+
+  body.light::after {
+    width: 270px;
+    height: 270px;
+    left: -175px;
+    filter: blur(72px);
+  }
+
+  [data-posts] {
+    gap: 14px;
+  }
+
+  [data-posts] .article-card {
+    margin: 0 !important;
+  }
+}
