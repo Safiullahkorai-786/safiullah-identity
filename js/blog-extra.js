@@ -16,8 +16,6 @@
     { platform: 'HackerNoon', title: "We Built a Tech Conference Where No One Expected It — OpenHack'25 and a Campus in Interior Sindh", excerpt: "Featured story: organizing OpenHack'25 and helping bring a major developer event to MUET SZAB Campus in interior Sindh.", url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh', tags: ['Community', 'Events', 'Developers', 'Leadership'] }
   ];
 
-  // A strict publishing boundary: only articles physically hosted on safiullahkorai.com
-  // belong to My Articles. Everything published elsewhere belongs to Elsewhere.
   const myArticles = posts.filter((post) => post.internal === true);
   const elsewhere = posts.filter((post) => post.internal !== true);
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
@@ -66,7 +64,7 @@
 
   function articleCard(post) {
     const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
-    return `<a class="card article-card reveal" href="${escapeHtml(post.url)}"${target}><div><span class="article-type">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`;
+    return `<a class="card article-card reveal" href="${escapeHtml(post.url)}"${target}><div>${post.thumbnail ? `<div class="article-card-media"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy"></div>` : ''}<div class="article-card-copy"><span class="article-type">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`;
   }
 
   function imageOnlyCard(post) {
@@ -99,8 +97,7 @@
       const type = params.get('type');
       let html = '';
       if ((!type || type === 'my') && filteredMine.length) {
-        const imageCards = filteredMine.map(imageOnlyCard).join('');
-        html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-image-grid">${imageCards || '<div class="blog-empty">No article images are available yet.</div>'}</div></section>`;
+        html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-image-grid blog-my-archive-grid">${filteredMine.map(articleCard).join('')}</div></section>`;
       }
       if ((!type || type === 'elsewhere') && filteredElsewhere.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-grid">${filteredElsewhere.map(articleCard).join('')}</div></section>`;
       container.innerHTML = html || '<div class="blog-empty">No articles matched your search or selected section.</div>';
