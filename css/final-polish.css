@@ -1,102 +1,13 @@
-/* Final shared polish: loaded after the base stylesheet. */
-
-.brand-mark {
-  background-image: url('../assets/safiullah-korai.png') !important;
-  background-position: center !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  font-size: 0 !important;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-/* Keep the About portrait flush with its glass frame instead of exposing the frame background. */
-.about-photo {
-  aspect-ratio: 4 / 5;
-}
-
-.about-photo img {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: auto !important;
-  object-fit: cover;
-  object-position: center top;
-}
-
-/* Home focus badge:
-   - Light theme keeps the existing light glass treatment.
-   - Dark theme gets a subtle black glass treatment at every viewport size. */
-body:not(.light).home-glass .floating-note {
-  background: rgba(7, 10, 15, 0.62) !important;
-  color: #f8fafc !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-  box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(18px) saturate(125%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
-}
-
-body:not(.light).home-glass .floating-note small {
-  color: rgba(241, 245, 249, 0.72) !important;
-}
-
-body:not(.light).home-glass .floating-note strong {
-  color: #ffffff !important;
-}
-
-@media (max-width: 620px) {
-  /* Mobile light theme: restore the soft white frosted-glass badge. */
-  body.light.home-glass .floating-note {
-    background: rgba(255, 255, 255, 0.62) !important;
-    color: #111827 !important;
-    border-color: rgba(255, 255, 255, 0.88) !important;
-    box-shadow:
-      0 14px 38px rgba(35, 55, 90, 0.10),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(18px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
-  }
-
-  body.light.home-glass .floating-note small {
-    color: rgba(51, 65, 85, 0.72) !important;
-  }
-
-  body.light.home-glass .floating-note strong {
-    color: #111827 !important;
-  }
-
-  /* Mobile dark theme remains subtly black and translucent, not solid. */
-  body:not(.light).home-glass .floating-note {
-    background: rgba(7, 10, 15, 0.62) !important;
-  }
-
-  /* Make the theme control the same visual size as the hamburger on mobile. */
-  .nav-actions .theme-toggle {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
-    font-size: 1rem !important;
-    line-height: 1 !important;
-  }
-}
-
-/* Featured article treatment */
-.article-card.article-featured {
-  border-color: rgba(124, 156, 255, 0.34) !important;
-  box-shadow: 0 22px 70px rgba(44, 72, 145, 0.13), inset 0 1px 0 rgba(255,255,255,.18);
-}
-
-body.light .article-card.article-featured {
-  background: rgba(255, 255, 255, 0.68) !important;
-  border-color: rgba(73, 109, 232, 0.24) !important;
-  box-shadow: 0 22px 70px rgba(42, 62, 92, 0.10), inset 0 1px 0 rgba(255,255,255,.98);
-}
-
-.article-platform {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 4px;
-}
+/* Final shared polish */
+.brand-mark{background-image:url('../assets/safiullah-korai.png')!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;font-size:0!important;overflow:hidden;border-radius:50%}
+.about-photo{aspect-ratio:4/5}.about-photo img{width:100%;height:100%;aspect-ratio:auto!important;object-fit:cover;object-position:center top}
+body:not(.light).home-glass .floating-note{background:rgba(7,10,15,.62)!important;color:#f8fafc!important;border-color:rgba(255,255,255,.14)!important;box-shadow:0 14px 38px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08)!important;backdrop-filter:blur(18px) saturate(125%)!important;-webkit-backdrop-filter:blur(18px) saturate(125%)!important}
+body:not(.light).home-glass .floating-note small{color:rgba(241,245,249,.72)!important}.home-glass .feature-strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-radius:24px}.home-glass .feature{min-width:0;padding:24px 26px;display:flex;flex-direction:column;justify-content:center;min-height:108px}.home-glass .feature strong{font-size:1.12rem}.home-glass .feature span{font-size:.8rem;line-height:1.45}
+.home-glass .articles-layout{display:grid;gap:20px}.home-glass .article-featured{grid-template-columns:minmax(0,1fr) auto;min-height:155px;align-items:center;padding:30px 32px;border-color:rgba(124,156,255,.34)!important}.home-glass .article-featured h3{font-size:clamp(1.35rem,2.3vw,2rem);line-height:1.15;margin-top:8px;max-width:850px}.home-glass .article-featured p{max-width:760px}.home-glass .articles-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.home-glass .article-card{min-width:0;min-height:205px}.home-glass .article-card h3{line-height:1.25}.home-glass .article-actions{justify-content:center;margin-top:24px}
+.home-glass .elsewhere-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.home-glass .elsewhere-card{min-width:0;min-height:190px;display:flex;flex-direction:column;justify-content:space-between}.home-glass .elsewhere-actions{justify-content:center;margin-top:24px}
+.article-card.article-featured{border-color:rgba(124,156,255,.34)!important;box-shadow:0 22px 70px rgba(44,72,145,.13),inset 0 1px 0 rgba(255,255,255,.18)}body.light .article-card.article-featured{background:rgba(255,255,255,.68)!important;border-color:rgba(73,109,232,.24)!important;box-shadow:0 22px 70px rgba(42,62,92,.1),inset 0 1px 0 rgba(255,255,255,.98)}.article-platform{display:inline-flex;align-items:center;gap:7px;margin-bottom:4px}
+@media(max-width:1000px){.home-glass .articles-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-glass .elsewhere-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){body.light.home-glass .floating-note{background:rgba(255,255,255,.62)!important;color:#111827!important;border-color:rgba(255,255,255,.88)!important;box-shadow:0 14px 38px rgba(35,55,90,.1),inset 0 1px 0 rgba(255,255,255,.95)!important;backdrop-filter:blur(18px) saturate(120%)!important;-webkit-backdrop-filter:blur(18px) saturate(120%)!important}.nav-actions .theme-toggle{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;font-size:1rem!important;line-height:1!important}
+.home-glass .feature-strip{grid-template-columns:1fr}.home-glass .feature{min-height:84px;padding:20px 22px;border-right:0!important;border-bottom:1px solid var(--line)!important}.home-glass .feature:last-child{border-bottom:0!important}
+.home-glass .article-featured{grid-template-columns:1fr;min-height:0;padding:24px}.home-glass .articles-grid{grid-template-columns:1fr;gap:14px}.home-glass .articles-grid .article-card:nth-child(n+5){display:none}.home-glass .article-card{min-height:0;padding:22px}.home-glass .article-actions{margin-top:20px}
+.home-glass .elsewhere-grid{grid-template-columns:1fr;gap:14px}.home-glass .elsewhere-card{min-height:0;padding:22px}.home-glass .elsewhere-card:nth-child(n+6){display:none}.home-glass .elsewhere-actions{margin-top:20px}}
