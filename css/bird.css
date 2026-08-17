@@ -1,0 +1,36 @@
+.site-bird {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 58px;
+  height: 42px;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
+  transition: opacity .45s ease;
+}
+
+.site-bird.is-visible { opacity: 1; }
+.site-bird svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 12px rgba(0,0,0,.14)); }
+.site-bird .bird-body { fill: currentColor; }
+.site-bird .bird-wing { fill: currentColor; transform-box: fill-box; transform-origin: 50% 70%; animation: bird-wing .28s ease-in-out infinite alternate; }
+.site-bird .bird-eye { fill: var(--bird-eye, #0b1020); }
+.site-bird .bird-beak { fill: #e8a84b; }
+
+@keyframes bird-wing {
+  from { transform: rotate(7deg) translateY(0); }
+  to { transform: rotate(-16deg) translateY(-2px); }
+}
+
+body.light .site-bird { color: #4f6ee8; --bird-eye: #182033; }
+body:not(.light) .site-bird { color: #9bb7ff; --bird-eye: #08101e; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-bird .bird-wing { animation: none; }
+}
+
+@media (max-width: 620px) {
+  .site-bird { width: 48px; height: 35px; }
+}
