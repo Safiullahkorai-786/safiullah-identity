@@ -1,6 +1,14 @@
 (() => {
   const posts = [
     {
+      platform: 'SafiullahKorai.com',
+      title: 'Why I Switched From Being a Software Engineer to AI Engineer',
+      excerpt: 'Why I am moving toward AI Engineering without leaving Software Engineering behind — the foundation stays, the direction expands.',
+      url: 'blog/why-i-switched-from-software-engineer-to-ai-engineer.html',
+      featured: true,
+      internal: true
+    },
+    {
       platform: 'Medium',
       title: 'Who Is Safiullah Korai? Flutter Developer Today, AI Engineer Tomorrow.',
       excerpt: 'A personal introduction to my work, direction and journey toward AI Engineering.',
@@ -76,8 +84,7 @@
       platform: 'HackerNoon',
       title: "We Built a Tech Conference Where No One Expected It — OpenHack'25 and a Campus in Interior Sindh",
       excerpt: "Featured story: organizing OpenHack'25 and helping bring a major developer event to MUET SZAB Campus in interior Sindh.",
-      url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh',
-      featured: true
+      url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh'
     }
   ];
 
@@ -94,13 +101,13 @@
 
     document.querySelectorAll('[data-posts]').forEach((container) => {
       container.innerHTML = orderedPosts.map((post) => `
-        <a class="card article-card reveal${post.featured ? ' article-featured' : ''}" href="${escapeHtml(post.url)}" target="_blank" rel="noopener">
+        <a class="card article-card reveal${post.featured ? ' article-featured' : ''}" href="${escapeHtml(post.url)}" target="${post.internal ? '_self' : '_blank'}" rel="${post.internal ? '' : 'noopener'}">
           <div>
             <span class="kicker article-platform">${escapeHtml(post.platform)}${post.featured ? ' · Featured' : ''}</span>
             <h3 style="margin-top:6px">${escapeHtml(post.title)}</h3>
             <p>${escapeHtml(post.excerpt)}</p>
           </div>
-          <span class="date">Read on ${escapeHtml(post.platform)} ↗</span>
+          <span class="date">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span>
         </a>
       `).join('');
 
