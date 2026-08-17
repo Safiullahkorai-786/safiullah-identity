@@ -1,0 +1,55 @@
+/* Final shared polish: loaded after the base stylesheet. */
+
+.brand-mark {
+  background-image: url('../assets/safiullah-korai.png') !important;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  font-size: 0 !important;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+/* On small screens the portrait note sits directly over the photo, so use a deeper frosted surface. */
+@media (max-width: 620px) {
+  .home-glass .floating-note,
+  body.light.home-glass .floating-note {
+    background: rgba(8, 12, 20, 0.86) !important;
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow:
+      0 16px 42px rgba(0, 0, 0, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(20px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(130%) !important;
+  }
+
+  .home-glass .floating-note small,
+  body.light.home-glass .floating-note small {
+    color: rgba(226, 232, 240, 0.78) !important;
+  }
+
+  .home-glass .floating-note strong,
+  body.light.home-glass .floating-note strong {
+    color: #ffffff !important;
+  }
+}
+
+/* Featured article treatment */
+.article-card.article-featured {
+  border-color: rgba(124, 156, 255, 0.34) !important;
+  box-shadow: 0 22px 70px rgba(44, 72, 145, 0.13), inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+body.light .article-card.article-featured {
+  background: rgba(255, 255, 255, 0.68) !important;
+  border-color: rgba(73, 109, 232, 0.24) !important;
+  box-shadow: 0 22px 70px rgba(42, 62, 92, 0.10), inset 0 1px 0 rgba(255,255,255,.98);
+}
+
+.article-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 4px;
+}
