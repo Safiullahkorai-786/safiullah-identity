@@ -1,0 +1,91 @@
+name: Apply Final Site Polish
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply shared polish
+        shell: python
+        run: |
+          from pathlib import Path
+
+          html_files = list(Path('.').glob('*.html'))
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # Remove every remaining bird hook/attribute.
+              text = text.replace(' data-site-bird="enabled"', '')
+              text = text.replace('<link rel="stylesheet" href="css/bird.css">', '')
+              text = text.replace('<script src="js/bird.js"></script>', '')
+
+              # Load the shared final visual polish after the base stylesheet.
+              if 'css/final-polish.css' not in text:
+                  text = text.replace('<link rel="stylesheet" href="css/style.css">', '<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/final-polish.css">', 1)
+
+              if path.name == 'blog.html':
+                  # Use a single long-term writing hub intro and remove the old workflow placeholder.
+                  text = text.replace(
+                      'Selected writing published on Medium.',
+                      'Selected writing published across Medium and HackerNoon.'
+                  )
+                  start = '<div class="card reveal" style="margin-top:18px"><span class="mini-label">Future publishing workflow</span>'
+                  if start in text:
+                      a = text.index(start)
+                      b = text.index('</div>', a) + len('</div>')
+                      text = text[:a] + text[b:]
+                  if 'js/blog-extra.js' not in text:
+                      text = text.replace('<script src="js/site.js"></script>', '<script src="js/site.js"></script><script src="js/blog-extra.js"></script>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  print(f'Updated {path}')
+
+          # Add the requested name clarification to the About copy.
+          about = Path('about.html')
+          text = about.read_text(encoding='utf-8')
+          old = "I'm <strong>Safiullah Korai</strong>, a Software Engineer, Flutter Developer and Technical Writer."
+          new = "I'm <strong>Safiullah Korai, also known as Shahzaib</strong>, a Software Engineer, Flutter Developer and Technical Writer."
+          if old in text:
+              text = text.replace(old, new, 1)
+              about.write_text(text, encoding='utf-8')
+
+          # Add the exact FAQ requested, including the online-name context.
+          faq = Path('faq.html')
+          text = faq.read_text(encoding='utf-8')
+          marker = '<details class="card reveal"><summary>What does Safiullah Korai do?</summary>'
+          if marker in text and 'Safiullah Korai also known as What?' not in text:
+              question = '<details class="card reveal"><summary>Safiullah Korai also known as What?</summary><p>Safiullah Korai is also known as <strong>Shahzaib</strong>. Shahzaib is an online name I use alongside my real name, Safiullah Korai.</p></details>'
+              text = text.replace(marker, question + marker, 1)
+              faq.write_text(text, encoding='utf-8')
+
+      - name: Commit final polish
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          git commit -m "Polish profile branding FAQ and writing pages"
+          git push
+
+      - name: Remove one-time workflow
+        if: success()
+        run: |
+          git rm .github/workflows/final-polish.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Remove one-time final polish workflow"
+          git push
