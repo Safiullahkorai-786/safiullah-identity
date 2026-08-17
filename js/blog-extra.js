@@ -90,8 +90,10 @@
   }[character]));
 
   function render() {
+    const orderedPosts = [...posts].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+
     document.querySelectorAll('[data-posts]').forEach((container) => {
-      container.innerHTML = posts.map((post) => `
+      container.innerHTML = orderedPosts.map((post) => `
         <a class="card article-card reveal${post.featured ? ' article-featured' : ''}" href="${escapeHtml(post.url)}" target="_blank" rel="noopener">
           <div>
             <span class="kicker article-platform">${escapeHtml(post.platform)}${post.featured ? ' · Featured' : ''}</span>
