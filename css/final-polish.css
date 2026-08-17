@@ -23,29 +23,52 @@
   object-position: center top;
 }
 
-/* Mobile: lightly deepen the frosted badge in dark mode so the text stays readable,
-   while preserving the translucent glass appearance. */
+/* Home focus badge:
+   - Light theme keeps the existing light glass treatment.
+   - Dark theme gets a subtle black glass treatment at every viewport size. */
+body:not(.light).home-glass .floating-note {
+  background: rgba(7, 10, 15, 0.62) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(18px) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
+}
+
+body:not(.light).home-glass .floating-note small {
+  color: rgba(241, 245, 249, 0.72) !important;
+}
+
+body:not(.light).home-glass .floating-note strong {
+  color: #ffffff !important;
+}
+
 @media (max-width: 620px) {
-  .home-glass .floating-note,
+  /* Mobile light theme: restore the soft white frosted-glass badge. */
   body.light.home-glass .floating-note {
-    background: rgba(16, 21, 31, 0.58) !important;
-    color: #f8fafc !important;
-    border-color: rgba(255, 255, 255, 0.18) !important;
+    background: rgba(255, 255, 255, 0.62) !important;
+    color: #111827 !important;
+    border-color: rgba(255, 255, 255, 0.88) !important;
     box-shadow:
-      0 14px 38px rgba(0, 0, 0, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
-    backdrop-filter: blur(18px) saturate(130%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
+      0 14px 38px rgba(35, 55, 90, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(18px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
   }
 
-  .home-glass .floating-note small,
   body.light.home-glass .floating-note small {
-    color: rgba(241, 245, 249, 0.74) !important;
+    color: rgba(51, 65, 85, 0.72) !important;
   }
 
-  .home-glass .floating-note strong,
   body.light.home-glass .floating-note strong {
-    color: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  /* Mobile dark theme remains subtly black and translucent, not solid. */
+  body:not(.light).home-glass .floating-note {
+    background: rgba(7, 10, 15, 0.62) !important;
   }
 
   /* Make the theme control the same visual size as the hamburger on mobile. */
