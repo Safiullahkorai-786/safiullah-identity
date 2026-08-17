@@ -16,10 +16,10 @@
     { platform: 'HackerNoon', title: "We Built a Tech Conference Where No One Expected It — OpenHack'25 and a Campus in Interior Sindh", excerpt: "Featured story: organizing OpenHack'25 and helping bring a major developer event to MUET SZAB Campus in interior Sindh.", url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh', tags: ['Community', 'Events', 'Developers', 'Leadership'] }
   ];
 
-  // Homepage presentation groups are intentional: My Articles is the six selected pieces,
-  // while Elsewhere is the remaining published work. Publication platform is shown on each card.
-  const myArticles = posts.slice(0, 6);
-  const elsewhere = posts.slice(6);
+  // A strict publishing boundary: only articles physically hosted on safiullahkorai.com
+  // belong to My Articles. Everything published elsewhere belongs to Elsewhere.
+  const myArticles = posts.filter((post) => post.internal === true);
+  const elsewhere = posts.filter((post) => post.internal !== true);
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
   const originalTags = [...new Set(posts.flatMap((post) => post.tags || []))].sort((a, b) => a.localeCompare(b));
   const selectedTags = new Set();
@@ -69,6 +69,12 @@
     return `<a class="card article-card reveal" href="${escapeHtml(post.url)}"${target}><div><span class="article-type">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`;
   }
 
+  function imageOnlyCard(post) {
+    if (!post.thumbnail) return '';
+    const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
+    return `<a class="blog-image-card reveal" href="${escapeHtml(post.url)}"${target} aria-label="Read ${escapeHtml(post.title)}"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy"></a>`;
+  }
+
   function sectionButton(label, href) { return `<div class="blog-view-more"><a href="${href}">${label} →</a></div>`; }
 
   function render() {
@@ -85,15 +91,18 @@
       const other = filteredElsewhere.slice(0, 6);
       let html = '';
       if (featured.length) html += `<section class="blog-section blog-featured-section"><div class="blog-section-heading"><div><h2>Featured</h2><p>A few pieces worth starting with.</p></div></div><div class="blog-featured-list">${featured.map(featuredCard).join('')}</div></section>`;
-      if (mine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Selected writing from my site and the publications where I share my work.</p></div></div><div class="blog-home-grid">${mine.map(articleCard).join('')}</div>${sectionButton('View all My Articles', 'view-more.html?type=my')}</section>`;
-      if (other.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>More writing and ideas I've published across the web.</p></div></div><div class="blog-home-grid">${other.map(articleCard).join('')}</div>${sectionButton('View all Elsewhere', 'view-more.html?type=elsewhere')}</section>`;
+      if (mine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-home-grid">${mine.map(articleCard).join('')}</div>${sectionButton('View all My Articles', 'view-more.html?type=my')}</section>`;
+      if (other.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-home-grid">${other.map(articleCard).join('')}</div>${sectionButton('View all Elsewhere', 'view-more.html?type=elsewhere')}</section>`;
       container.innerHTML = html || '<div class="blog-empty">No articles matched your search. Try another keyword or tag.</div>';
     } else {
       const params = new URLSearchParams(window.location.search);
       const type = params.get('type');
       let html = '';
-      if ((!type || type === 'my') && filteredMine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Selected writing from my site and the publications where I share my work.</p></div></div><div class="blog-grid">${filteredMine.map((post) => post.featured ? featuredCard(post) : articleCard(post)).join('')}</div></section>`;
-      if ((!type || type === 'elsewhere') && filteredElsewhere.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>More writing and ideas I've published across the web.</p></div></div><div class="blog-grid">${filteredElsewhere.map(articleCard).join('')}</div></section>`;
+      if ((!type || type === 'my') && filteredMine.length) {
+        const imageCards = filteredMine.map(imageOnlyCard).join('');
+        html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-image-grid">${imageCards || '<div class="blog-empty">No article images are available yet.</div>'}</div></section>`;
+      }
+      if ((!type || type === 'elsewhere') && filteredElsewhere.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-grid">${filteredElsewhere.map(articleCard).join('')}</div></section>`;
       container.innerHTML = html || '<div class="blog-empty">No articles matched your search or selected section.</div>';
     }
     observeReveal(container);
