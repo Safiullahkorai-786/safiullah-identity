@@ -2,35 +2,55 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 58px;
-  height: 42px;
-  z-index: 20;
-  pointer-events: none;
+  width: 82px;
+  height: 65px;
+  z-index: 90;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   opacity: 0;
   transform: translate3d(-100px, -100px, 0);
   will-change: transform;
-  transition: opacity .45s ease;
+  transition: opacity .45s ease, filter .18s ease;
+  filter: drop-shadow(0 9px 12px rgba(0, 40, 80, .14));
 }
 
 .site-bird.is-visible { opacity: 1; }
-.site-bird svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 12px rgba(0,0,0,.14)); }
-.site-bird .bird-body { fill: currentColor; }
-.site-bird .bird-wing { fill: currentColor; transform-box: fill-box; transform-origin: 50% 70%; animation: bird-wing .28s ease-in-out infinite alternate; }
-.site-bird .bird-eye { fill: var(--bird-eye, #0b1020); }
-.site-bird .bird-beak { fill: #e8a84b; }
+.site-bird img { width: 100%; height: 100%; display: block; object-fit: contain; overflow: visible; }
 
-@keyframes bird-wing {
-  from { transform: rotate(7deg) translateY(0); }
-  to { transform: rotate(-16deg) translateY(-2px); }
+/* A gentle wing-like shimmer makes the faceted bird feel alive without distorting its silhouette. */
+.site-bird img { animation: bird-flutter .32s ease-in-out infinite alternate; transform-origin: 42% 48%; }
+
+@keyframes bird-flutter {
+  from { transform: translateY(1px) scaleY(.97); }
+  to { transform: translateY(-2px) scaleY(1.02); }
 }
 
-body.light .site-bird { color: #4f6ee8; --bird-eye: #182033; }
-body:not(.light) .site-bird { color: #9bb7ff; --bird-eye: #08101e; }
+.site-bird.bird-hurt {
+  filter: drop-shadow(0 15px 16px rgba(0, 0, 0, .18)) brightness(.78) saturate(.72);
+}
+
+.site-bird.bird-hurt img { animation: bird-stun .22s ease-in-out infinite alternate; }
+
+@keyframes bird-stun {
+  from { transform: rotate(-5deg) translateY(0); }
+  to { transform: rotate(7deg) translateY(2px); }
+}
+
+.site-bird.bird-wake img { animation: bird-wake 140ms ease-in-out infinite alternate; }
+
+@keyframes bird-wake {
+  from { transform: scale(.96) rotate(-3deg); }
+  to { transform: scale(1.02) rotate(3deg); }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .site-bird .bird-wing { animation: none; }
+  .site-bird img,
+  .site-bird.bird-hurt img,
+  .site-bird.bird-wake img { animation: none; }
 }
 
 @media (max-width: 620px) {
-  .site-bird { width: 48px; height: 35px; }
+  .site-bird { width: 62px; height: 50px; }
 }
