@@ -1,117 +1,195 @@
 (() => {
-  const bird = document.createElement('div');
+  if (window.__safiullahBird) return;
+  window.__safiullahBird = true;
+
+  const bird = document.createElement('button');
   bird.className = 'site-bird';
-  bird.setAttribute('aria-hidden', 'true');
-  bird.innerHTML = `
-    <svg viewBox="0 0 120 80" role="presentation">
-      <path class="bird-body" d="M20 42c10-13 26-17 42-10 8-11 22-16 34-9-8 4-12 10-14 17 10 2 18 7 23 14-12-2-22-5-31-11-9 10-24 15-38 10-7-2-12-6-16-11z"/>
-      <path class="bird-wing" d="M48 34C35 16 25 11 13 15c10 8 17 16 22 27 5-1 9-4 13-8z"/>
-      <circle class="bird-eye" cx="78" cy="30" r="2.2"/>
-      <path class="bird-beak" d="M91 34l16 4-14 5z"/>
-    </svg>`;
+  bird.type = 'button';
+  bird.setAttribute('aria-label', 'Flutter bird');
+  bird.innerHTML = '<img src="assets/flutter-bird.svg" alt="">';
   document.body.appendChild(bird);
 
-  let x = window.innerWidth * .72;
-  let y = Math.max(90, window.innerHeight * .18);
+  let x = Math.max(40, innerWidth * 0.72);
+  let y = Math.max(100, innerHeight * 0.18);
   let targetX = x;
   let targetY = y;
-  let velocityX = .35;
-  let velocityY = 0;
-  let lastScroll = window.scrollY;
-  let lastPointerX = null;
-  let lastPointerY = null;
-  let fleeingUntil = 0;
-  let nextWander = performance.now() + 1200;
+  let vx = 0.45;
+  let vy = 0;
+  let state = 'flying';
+  let nextDecision = performance.now() + 1400;
   let lastFrame = performance.now();
+  let lastScroll = scrollY;
+  let pointer = { x: -9999, y: -9999, active: false };
+  let lastPointer = null;
+  let fleeingUntil = 0;
 
-  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-  const bounds = () => ({
-    minX: 20,
-    maxX: Math.max(80, window.innerWidth - 80),
-    minY: 80,
-    maxY: Math.max(110, window.innerHeight - 100)
-  });
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const bounds = () => ({ minX: 12, maxX: Math.max(20, innerWidth - 92), minY: 76, maxY: Math.max(110, innerHeight - 92) });
+
+  function setTarget(nx, ny) {
+    const b = bounds();
+    targetX = clamp(nx, b.minX, b.maxX);
+    targetY = clamp(ny, b.minY, b.maxY);
+  }
 
   function chooseWander(now) {
     const b = bounds();
-    targetX = clamp(x + (Math.random() - .5) * 260, b.minX, b.maxX);
-    targetY = clamp(y + (Math.random() - .5) * 180, b.minY, b.maxY);
-    nextWander = now + 1500 + Math.random() * 2300;
+    setTarget(x + (Math.random() - 0.5) * 360, y + (Math.random() - 0.5) * 240);
+    nextDecision = now + 1800 + Math.random() * 2800;
   }
 
-  function flee(pointerX, pointerY) {
-    const dx = x - pointerX;
-    const dy = y - pointerY;
-    const distance = Math.hypot(dx, dy) || 1;
-    const force = clamp((190 - distance) / 190, 0, 1);
-    if (force <= 0) return;
+  function visiblePerchTargets() {
+    return [...document.querySelectorAll('.card, .feature, .feature-strip, .eyebrow, h1, h2, h3, .btn, .site-footer')]
+      .map(el => ({ el, r: el.getBoundingClientRect() }))
+      .filter(({ r }) => r.width > 80 && r.height > 24 && r.bottom > 70 && r.top < innerHeight - 20)
+      .filter(({ r }) => r.left < innerWidth - 20 && r.right > 20);
+  }
 
+  function perch(now) {
+    const targets = visiblePerchTargets();
+    if (!targets.length) return false;
+    const { r } = targets[Math.floor(Math.random() * targets.length)];
+    const nx = clamp(r.left + Math.random() * Math.max(1, r.width - 55), 12, innerWidth - 92);
+    const ny = clamp(r.top - 34, 70, innerHeight - 100);
+    setTarget(nx, ny);
+    state = 'perching';
+    nextDecision = now + 2200 + Math.random() * 4200;
+    return true;
+  }
+
+  function flee(px, py) {
+    const dx = x + 28 - px;
+    const dy = y + 20 - py;
+    const d = Math.hypot(dx, dy) || 1;
+    if (d > 210) return;
     const b = bounds();
-    targetX = clamp(x + (dx / distance) * (260 + force * 260), b.minX, b.maxX);
-    targetY = clamp(y + (dy / distance) * (190 + force * 180), b.minY, b.maxY);
-    fleeingUntil = performance.now() + 950;
+    const strength = clamp((230 - d) / 230, 0, 1);
+    setTarget(x + dx / d * (300 + strength * 260), y + dy / d * (180 + strength * 210));
+    fleeingUntil = performance.now() + 1000;
+    state = 'flying';
+    nextDecision = fleeingUntil + 700;
   }
 
-  window.addEventListener('pointermove', (event) => {
-    if (lastPointerX !== null) {
-      const pointerSpeed = Math.hypot(event.clientX - lastPointerX, event.clientY - lastPointerY);
-      if (pointerSpeed > 5) flee(event.clientX, event.clientY);
+  function nearCorner(px, py) {
+    const corners = [[0, 0], [innerWidth, 0], [0, innerHeight], [innerWidth, innerHeight]];
+    return corners.some(([cx, cy]) => Math.hypot(px - cx, py - cy) < 155);
+  }
+
+  function hurtAndRecover() {
+    if (state === 'falling' || state === 'waking') return;
+    state = 'falling';
+    bird.classList.add('bird-hurt');
+    vx = 0;
+    vy = 0;
+    targetX = x;
+    targetY = Math.min(innerHeight - 46, y + 150);
+    setTimeout(() => {
+      state = 'waking';
+      bird.classList.remove('bird-hurt');
+      bird.classList.add('bird-wake');
+      setTimeout(() => {
+        bird.classList.remove('bird-wake');
+        state = 'flying';
+        chooseWander(performance.now());
+      }, 720);
+    }, 920);
+  }
+
+  bird.addEventListener('click', (event) => {
+    if (nearCorner(event.clientX, event.clientY)) hurtAndRecover();
+    else flee(event.clientX, event.clientY);
+  });
+
+  window.addEventListener('pointermove', event => {
+    pointer = { x: event.clientX, y: event.clientY, active: true };
+    if (lastPointer) {
+      const speed = Math.hypot(event.clientX - lastPointer.x, event.clientY - lastPointer.y);
+      if (speed > 8) flee(event.clientX, event.clientY);
     }
-    lastPointerX = event.clientX;
-    lastPointerY = event.clientY;
+    lastPointer = { x: event.clientX, y: event.clientY };
   }, { passive: true });
 
   window.addEventListener('scroll', () => {
-    const delta = window.scrollY - lastScroll;
-    lastScroll = window.scrollY;
-    targetY = clamp(targetY - delta * .22, 70, window.innerHeight - 90);
-    targetX = clamp(targetX + (Math.random() - .5) * 90, 20, window.innerWidth - 80);
-    fleeingUntil = performance.now() + 350;
+    const delta = scrollY - lastScroll;
+    lastScroll = scrollY;
+    if (state !== 'falling' && state !== 'waking') {
+      setTarget(targetX + (Math.random() - 0.5) * 100, targetY - delta * 0.32);
+      state = 'flying';
+      fleeingUntil = performance.now() + 480;
+    }
   }, { passive: true });
 
-  window.addEventListener('resize', () => {
+  // When navigating through the site's pages, the bird enters from the opposite edge.
+  document.querySelectorAll('a[href$=".html"], a[href="./"], a[href="/"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const rect = link.getBoundingClientRect();
+      sessionStorage.setItem('birdEntry', rect.left < innerWidth / 2 ? 'left' : 'right');
+    });
+  });
+
+  const entry = sessionStorage.getItem('birdEntry');
+  if (entry) {
+    const fromLeft = entry === 'left';
+    x = fromLeft ? -85 : innerWidth + 35;
+    y = Math.max(100, innerHeight * (0.22 + Math.random() * 0.32));
+    setTarget(fromLeft ? innerWidth * 0.48 : innerWidth * 0.52, y);
+    sessionStorage.removeItem('birdEntry');
+  } else {
+    chooseWander(performance.now());
+  }
+
+  addEventListener('resize', () => {
     const b = bounds();
     x = clamp(x, b.minX, b.maxX);
     y = clamp(y, b.minY, b.maxY);
-    targetX = clamp(targetX, b.minX, b.maxX);
-    targetY = clamp(targetY, b.minY, b.maxY);
+    setTarget(targetX, targetY);
   });
 
   function animate(now) {
     const dt = Math.min((now - lastFrame) / 16.67, 2);
     lastFrame = now;
 
-    if (now > nextWander && now > fleeingUntil) chooseWander(now);
+    if (state === 'flying' && now > nextDecision) {
+      if (Math.random() < 0.32 && perch(now)) {
+        // intentionally sit for a while
+      } else {
+        chooseWander(now);
+      }
+    }
 
     const dx = targetX - x;
     const dy = targetY - y;
-    const responsiveness = now < fleeingUntil ? .085 : .035;
+    const fast = now < fleeingUntil;
+    const responsiveness = state === 'perching' ? 0.018 : state === 'falling' ? 0.12 : fast ? 0.095 : 0.035;
+    vx += dx * responsiveness * dt;
+    vy += dy * responsiveness * dt;
+    vx *= Math.pow(state === 'perching' ? 0.84 : 0.91, dt);
+    vy *= Math.pow(state === 'perching' ? 0.84 : 0.91, dt);
 
-    velocityX += dx * responsiveness * dt;
-    velocityY += dy * responsiveness * dt;
-    velocityX *= Math.pow(.91, dt);
-    velocityY *= Math.pow(.91, dt);
+    if (state === 'falling') vy += 0.55 * dt;
 
-    const maxSpeed = now < fleeingUntil ? 15 : 5.5;
-    const speed = Math.hypot(velocityX, velocityY);
+    const maxSpeed = state === 'falling' ? 10 : fast ? 16 : state === 'perching' ? 1.4 : 6;
+    const speed = Math.hypot(vx, vy);
     if (speed > maxSpeed) {
-      velocityX = velocityX / speed * maxSpeed;
-      velocityY = velocityY / speed * maxSpeed;
+      vx = vx / speed * maxSpeed;
+      vy = vy / speed * maxSpeed;
     }
 
-    x += velocityX * dt;
-    y += velocityY * dt;
+    x += vx * dt;
+    y += vy * dt;
 
-    const angle = clamp(velocityY * 2.2, -18, 18);
-    const facing = velocityX < -0.15 ? -1 : 1;
+    if (state === 'falling' && Math.abs(y - targetY) < 8) {
+      vx *= 0.4;
+      vy *= 0.25;
+    }
+
+    const facing = vx < -0.15 ? -1 : 1;
+    const tilt = clamp(vy * 1.8, -20, 20);
+    const bob = state === 'perching' ? Math.sin(now / 260) * 1.1 : Math.sin(now / 150) * 2.2;
     const scale = facing === -1 ? -1 : 1;
-    const bob = Math.sin(now / 180) * 2.5;
-
-    bird.style.transform = `translate3d(${x}px, ${y + bob}px, 0) rotate(${angle}deg) scaleX(${scale})`;
-    bird.classList.add('is-visible');
+    bird.style.transform = `translate3d(${x}px, ${y + bob}px, 0) rotate(${tilt}deg) scaleX(${scale})`;
     requestAnimationFrame(animate);
   }
 
-  chooseWander(performance.now());
   requestAnimationFrame(animate);
 })();
