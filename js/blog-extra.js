@@ -7,8 +7,8 @@
       featured: true, internal: true, date: 'Aug 17, 2026', readTime: '8 min read',
       tags: ['AI', 'Career', 'Software Engineering', 'Developer Journey']
     },
-    { platform: 'Medium', title: 'Who Is Safiullah Korai? Flutter Developer Today, AI Engineer Tomorrow.', excerpt: 'A personal introduction to my work, direction and journey toward AI Engineering.', url: 'https://medium.com/@safiullahkorai/who-is-safiullah-korai-flutter-developer-today-ai-engineer-tomorrow-8c49ba9847e6', tags: ['AI', 'Flutter', 'Career', 'Personal Brand'] },
-    { platform: 'Medium', title: 'The Experience Trap Is Breaking the Next Generation of Talent', excerpt: 'Thoughts on experience, opportunity and how the next generation of talent gets overlooked.', url: 'https://medium.com/@safiullahkorai/the-experience-trap-is-breaking-the-next-generation-of-talent-b6a64dff79ba', tags: ['Career', 'Developers', 'Opportunity'] },
+    { platform: 'Medium', title: 'Who Is Safiullah Korai? Flutter Developer Today, AI Engineer Tomorrow.', excerpt: 'A personal introduction to my work, direction and journey toward AI Engineering.', url: 'https://medium.com/@safiullahkorai/who-is-safiullah-korai-flutter-developer-today-ai-engineer-tomorrow-8c49ba9847e6', featured: true, tags: ['AI', 'Flutter', 'Career', 'Personal Brand'] },
+    { platform: 'Medium', title: 'The Experience Trap Is Breaking the Next Generation of Talent', excerpt: 'Thoughts on experience, opportunity and how the next generation of talent gets overlooked.', url: 'https://medium.com/@safiullahkorai/the-experience-trap-is-breaking-the-next-generation-of-talent-b6a64dff79ba', featured: true, tags: ['Career', 'Developers', 'Opportunity'] },
     { platform: 'Medium', title: 'Bento Me: The Website Without Coding', excerpt: 'A look at building a personal web presence without starting from a traditional coding workflow.', url: 'https://medium.com/@safiullahkorai/bento-me-the-website-without-coding-37ef4ed15626', tags: ['Web Development', 'Personal Brand', 'No-Code'] },
     { platform: 'HackerNoon', title: 'How Stitch Helps Flutter Developers Design Faster', excerpt: 'Exploring how Google Stitch can speed up interface ideation for Flutter developers.', url: 'https://hackernoon.com/how-stitch-helps-flutter-developers-design-faster', tags: ['Flutter', 'UI/UX', 'AI Tools', 'Development'] },
     { platform: 'HackerNoon', title: 'Google Stitch Is Changing UI/UX Design in 2026', excerpt: 'A look at how AI-assisted design workflows are changing the way developers think about interfaces.', url: 'https://hackernoon.com/google-stitch-is-changing-uiux-design-in-2026', tags: ['AI', 'UI/UX', 'Design', 'Development'] },
@@ -57,52 +57,55 @@
 
   function matches(post) {
     const haystack = [post.title, post.excerpt, post.platform, ...(post.tags || [])].join(' ').toLowerCase();
-    const searchMatches = !searchTerm || haystack.includes(searchTerm);
-    const tagMatches = [...selectedTags].every((tag) => (post.tags || []).includes(tag));
-    return searchMatches && tagMatches;
+    return (!searchTerm || haystack.includes(searchTerm)) && [...selectedTags].every((tag) => (post.tags || []).includes(tag));
   }
 
   function tagsMarkup(post) { return (post.tags || []).map((tag) => `<span class="article-tag">${escapeHtml(tag)}</span>`).join(''); }
 
   function featuredCard(post) {
-    return `<a class="card article-card article-featured reveal" href="${escapeHtml(post.url)}"><div class="article-featured-media"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)} thumbnail" loading="eager"></div><div class="article-featured-content"><span class="article-type">Featured · My Writing</span><h2 style="margin:0 0 10px">${escapeHtml(post.title)}</h2><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div><div class="article-meta"><span>${escapeHtml(post.date)} · ${escapeHtml(post.readTime)}</span><span class="article-link">Read article →</span></div></div></a>`;
+    return `<a class="card article-card article-featured reveal" href="${escapeHtml(post.url)}"${post.internal ? '' : ' target="_blank" rel="noopener noreferrer"'}><div class="article-featured-media">${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)} thumbnail" loading="eager">` : '<div class="article-featured-placeholder">Featured</div>'}</div><div class="article-featured-content"><span class="article-type">Featured · ${post.internal ? 'My Writing' : 'Elsewhere'}</span><h2 style="margin:0 0 10px">${escapeHtml(post.title)}</h2><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div><div class="article-meta"><span>${post.date ? `${escapeHtml(post.date)} · ${escapeHtml(post.readTime || '')}` : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></div></a>`;
   }
 
   function articleCard(post) {
-    return `<a class="card article-card external-card reveal" href="${escapeHtml(post.url)}" target="_blank" rel="noopener noreferrer"><div><span class="article-type external-platform">Published on ${escapeHtml(post.platform)}</span><h3 style="margin-top:6px">${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div><div class="article-meta"><span>Elsewhere</span><span class="article-link">Read on ${escapeHtml(post.platform)} ↗</span></div></a>`;
+    return `<a class="card article-card external-card reveal" href="${escapeHtml(post.url)}"${post.internal ? '' : ' target="_blank" rel="noopener noreferrer'}><div><span class="article-type external-platform">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3 style="margin-top:6px">${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : 'Elsewhere'}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`;
   }
 
-  function observeReveal(container) {
-    container.querySelectorAll('.reveal').forEach((element) => { if (window.observer) window.observer.observe(element); requestAnimationFrame(() => element.classList.add('visible')); });
+  function sectionButton(label, count, filter) {
+    if (!count) return '';
+    const params = filter ? `?type=${encodeURIComponent(filter)}` : '';
+    return `<div class="blog-view-more"><a href="view-more.html${params}">${label} (${count}) →</a></div>`;
   }
 
   function render() {
     const container = document.querySelector('[data-posts]'); if (!container) return;
     const filtered = posts.filter(matches);
     const count = document.querySelector('[data-blog-count]');
-    if (count) count.textContent = `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}${isHome ? ' · showing up to 4' : ''}`;
+    if (count) count.textContent = `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}`;
 
     if (isHome) {
-      const visible = filtered.slice(0, 4);
-      const featured = visible.find((post) => post.featured);
-      const rest = visible.filter((post) => post !== featured);
+      const featured = filtered.filter((post) => post.featured).slice(0, 3);
+      const internal = filtered.filter((post) => post.internal).slice(0, 6);
+      const external = filtered.filter((post) => !post.internal).slice(0, 6);
       let html = '';
-      if (featured) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Featured</h2><p>The article I most want you to read right now.</p></div></div>${featuredCard(featured)}</section>`;
-      if (rest.length) {
-        const internal = rest.filter((post) => post.internal), external = rest.filter((post) => !post.internal);
-        if (internal.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Writing</h2><p>Articles published on SafiullahKorai.com.</p></div></div><div class="blog-home-grid">${internal.map(articleCard).join('')}</div></section>`;
-        if (external.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Things I've written and published across the web.</p></div></div><div class="blog-home-grid">${external.map(articleCard).join('')}</div></section>`;
-      }
-      if (filtered.length > 4) html += `<div class="blog-view-more"><a href="view-more.html">View all ${filtered.length} articles →</a></div>`;
+      if (featured.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Featured</h2><p>Three pieces worth starting with.</p></div></div><div class="blog-featured-grid">${featured.map(featuredCard).join('')}</div></section>`;
+      if (internal.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published on SafiullahKorai.com.</p></div></div><div class="blog-home-grid">${internal.map(articleCard).join('')}</div>${sectionButton('View all My Articles', filtered.filter((post) => post.internal).length, 'my')}</section>`;
+      if (external.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Things I've written and published across the web.</p></div></div><div class="blog-home-grid">${external.map(articleCard).join('')}</div>${sectionButton('View all Elsewhere', filtered.filter((post) => !post.internal).length, 'elsewhere')}</section>`;
       container.innerHTML = html || '<div class="blog-empty">No articles matched your search. Try another keyword or tag.</div>';
     } else {
-      const internal = filtered.filter((post) => post.internal), external = filtered.filter((post) => !post.internal);
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get('type');
+      const internal = filtered.filter((post) => post.internal);
+      const external = filtered.filter((post) => !post.internal);
       let html = '';
-      if (internal.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Writing</h2><p>Articles published on SafiullahKorai.com.</p></div></div>${internal.map((post) => post.featured ? featuredCard(post) : `<div class="blog-grid">${articleCard(post)}</div>`).join('')}</section>`;
-      if (external.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Things I've written and published across the web.</p></div></div><div class="blog-grid">${external.map(articleCard).join('')}</div></section>`;
-      container.innerHTML = html || '<div class="blog-empty">No articles matched your search. Try another keyword or tag.</div>';
+      if ((!type || type === 'my') && internal.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>${internal.length} article${internal.length === 1 ? '' : 's'} published on SafiullahKorai.com.</p></div></div><div class="blog-grid">${internal.map((post) => post.featured ? featuredCard(post) : articleCard(post)).join('')}</div></section>`;
+      if ((!type || type === 'elsewhere') && external.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>${external.length} article${external.length === 1 ? '' : 's'} published across the web.</p></div></div><div class="blog-grid">${external.map((post) => post.featured ? featuredCard(post) : articleCard(post)).join('')}</div></section>`;
+      container.innerHTML = html || '<div class="blog-empty">No articles matched your search or selected section.</div>';
     }
     observeReveal(container);
+  }
+
+  function observeReveal(container) {
+    container.querySelectorAll('.reveal').forEach((element) => { if (window.observer) window.observer.observe(element); requestAnimationFrame(() => element.classList.add('visible')); });
   }
 
   if (filterToggle && filterPanel) filterToggle.addEventListener('click', () => {
