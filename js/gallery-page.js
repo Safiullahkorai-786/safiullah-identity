@@ -1,11 +1,34 @@
 (() => {
   const galleryGroups = [
     {
+      category: 'Personal & Professional Moments',
+      items: [
+        {
+          title: 'Safiullah Korai — Moments Along the Journey',
+          description: 'A collection of personal and professional moments from my journey as a software engineer, Flutter developer, technical writer and community builder. These photographs capture the people, places and in-between moments behind the work.',
+          images: [
+            'assets/Safiullah-Korai-Pic-3.jpg',
+            'assets/Safiullah-Korai-Pic-4.jpg',
+            'assets/Safiullah-Korai-Pic-5.jpg',
+            'assets/Safiullah-Korai-Pic-6.jpg',
+            'assets/Safiullah-Korai-Pic-7.jpg',
+            'assets/Safiullah-Korai-Pic-8.jpg',
+            'assets/Safiullah-Korai-Pic-9.jpg',
+            'assets/Safiullah-Korai-Pic-10.jpg',
+            'assets/Safiullah-Korai-Pic-11.jpg',
+            'assets/Safiullah-Korai-Pic-12.jpg',
+            'assets/Safiullah-Korai-Pic-13.jpg',
+            'assets/Safiullah-Korai-Pic-14.jpg'
+          ]
+        }
+      ]
+    },
+    {
       category: 'Events & Community',
       items: [
         {
           title: "OpenHack'25",
-          description: 'A student-led technology conference and hackathon at MUET SZAB Campus Khairpur.',
+          description: 'A student-led technology conference and hackathon at MUET SZAB Campus Khairpur, organized as a major community event in Sindh.',
           images: ['assets/achievements/community/OpenHack25_event_Main_Poster.jpg']
         },
         {
@@ -78,33 +101,14 @@
       ]
     },
     {
-      category: 'Conferences & Events',
-      items: [
-        {
-          title: 'Conferences, Summits & University Events',
-          description: 'This collection is reserved for conferences, summits and university events. New event sets can be added without changing the page structure.',
-          images: []
-        }
-      ]
-    },
-    {
       category: 'Memberships',
       items: [
         {
           title: 'Pakistan Freelancers Association',
           description: 'Membership credential and professional affiliation.',
           images: ['assets/achievements/community/Safiullah_Korai_PAFLA_Certificate_of_Membership_2026.png']
-        },
-        {
-          title: 'IAENG',
-          description: 'International Association of Engineers membership. Add the membership image to the achievements/community folder when available and it will be included here.',
-          images: []
         }
       ]
-    },
-    {
-      category: 'Moments',
-      items: []
     }
   ];
 
@@ -118,22 +122,21 @@
     const id = `gallery-carousel-${carouselId++}`;
     return `<article class="gallery-story-card reveal" data-gallery-story="${esc(id)}">
       <div class="gallery-story-media ${images.length ? '' : 'is-empty'}" data-gallery-open="${esc(id)}">
-        ${images.length ? `<div class="gallery-story-track">${images.map((src, index) => `<img class="gallery-story-slide ${index === 0 ? 'is-active' : ''}" src="${esc(encode(src))}" alt="${esc(item.title)} — photo ${index + 1}" loading="lazy">`).join('')}</div><button class="gallery-arrow gallery-prev" type="button" data-gallery-prev="${esc(id)}" aria-label="Previous photo">‹</button><button class="gallery-arrow gallery-next" type="button" data-gallery-next="${esc(id)}" aria-label="Next photo">›</button><span class="gallery-view-hint">Click to view full size</span>` : `<div class="gallery-empty-state"><span>Photos coming soon</span></div>`}
+        ${images.length ? `<div class="gallery-story-track">${images.map((src, index) => `<img class="gallery-story-slide ${index === 0 ? 'is-active' : ''}" src="${esc(encode(src))}" alt="${esc(item.title)} — photo ${index + 1}" loading="lazy">`).join('')}</div><button class="gallery-arrow gallery-prev" type="button" data-gallery-prev="${esc(id)}" aria-label="Previous photo">‹</button><button class="gallery-arrow gallery-next" type="button" data-gallery-next="${esc(id)}" aria-label="Next photo">›</button><span class="gallery-view-hint">Click to view full size</span>` : ''}
       </div>
-      <div class="gallery-story-body"><span class="mini-label">${esc(group.category)}</span><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p>${images.length > 1 ? `<div class="gallery-dots">${images.map((_, index) => `<button type="button" class="gallery-dot ${index === 0 ? 'is-active' : ''}" data-gallery-dot="${esc(id)}" data-slide="${index}" aria-label="Show photo ${index + 1}"></button>`).join('')}</div>` : ''}</div>
+      <div class="gallery-story-body"><span class="mini-label">${esc(group.category)}</span><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p>${images.length > 1 ? `<div class="gallery-dots" aria-label="Gallery photos">${images.map((_, index) => `<button type="button" class="gallery-dot ${index === 0 ? 'is-active' : ''}" data-gallery-dot="${esc(id)}" data-slide="${index}" aria-label="Show photo ${index + 1}"></button>`).join('')}</div>` : ''}</div>
     </article>`;
   }
 
   function render() {
     const mount = document.querySelector('[data-gallery-page]');
     if (!mount) return;
-    mount.innerHTML = galleryGroups.map((group) => `<section class="section gallery-category"><div class="container"><div class="section-head"><div><span class="kicker">${esc(group.category)}</span><h2>${esc(group.category)}</h2></div></div>${group.items.length ? `<div class="gallery-story-grid">${group.items.map((item) => groupCard(group, item)).join('')}</div>` : `<div class="gallery-coming-soon"><strong>More ${esc(group.category.toLowerCase())} can come later.</strong><span>Add the photos to the matching <code>assets/gallery/</code> folder and they can be added without changing the layout.</span></div>`}</div></section>`).join('');
+    mount.innerHTML = galleryGroups.map((group) => `<section class="section gallery-category"><div class="container"><div class="section-head"><div><span class="kicker">${esc(group.category)}</span><h2>${esc(group.category)}</h2></div></div><div class="gallery-story-grid">${group.items.map((item) => groupCard(group, item)).join('')}</div></div></section>`).join('');
     bindCarousels();
   }
 
   function bindCarousels() {
     document.querySelectorAll('[data-gallery-story]').forEach((card) => {
-      const id = card.dataset.galleryStory;
       const slides = [...card.querySelectorAll('.gallery-story-slide')];
       const dots = [...card.querySelectorAll('.gallery-dot')];
       if (!slides.length) return;
