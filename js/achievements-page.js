@@ -1,35 +1,46 @@
 (() => {
   const A = 'assets/achievements/';
   const G = 'assets/gallery/community/';
+  const E = 'assets/experience/internships/';
 
   const awards = [
-    {
-      label: 'Award',
-      title: 'Zindigi Prize — First Runner-Up',
-      text: 'Recognized as First Runner-Up at the Zindigi Prize event at MUET SZAB Campus.',
-      meta: 'MUET SZAB · Zindigi Prize',
-      image: 'assets/Safiullah-Korai-And-Team-Recieving-First-Runner-Up-Award-At-MUETSZAB-Zindigi-Prize-Event.jpg'
-    }
+    { label: 'Award', title: 'Academic & Extracurricular Honors', text: 'A collection of academic and extracurricular honors received across different stages of my journey.', meta: 'Academic & Extracurricular', images: [`${A}awards/Academic & Extracurricular Honors 01.jpg`, `${A}awards/Academic & Extracurricular Honors 02.jpg`, `${A}awards/Academic & Extracurricular Honors 03.jpg`] },
+    { label: 'Award', title: 'Best Performance Award of the Year', text: 'Recognized with the Best Performance Award of the Year during school.', meta: 'School Recognition', image: `${A}awards/Best Performance Award of The Year in School.jpg` },
+    { label: 'Award', title: "OpenHack'25 Event Organizer Award", text: "Recognition for my contribution as an organizer of OpenHack'25.", meta: "OpenHack'25", image: `${A}awards/OpenHack25 Event Organizor Award.jpeg` },
+    { label: 'Award', title: 'Poster Competition Winner', text: 'Winner recognition from a poster competition.', meta: 'Competition Award', image: `${A}awards/Poster Competition Winner Award.jpeg` },
+    { label: 'Honor', title: 'ETL Ambassador — Sponsorship Honor', text: 'Honor received for bringing sponsorship from the ETL Online community through my ambassador role.', meta: 'ETL Online', image: `${A}awards/Sponsor Honor Award as an ETL Ambassador for Bringing the Sponsorship from Community ETL Online.jpeg` },
+    { label: 'Honor', title: 'ETL Online Sponsorship Honor Shield', text: 'Honor shield received on behalf of ETL Online for bringing the sponsorship from my community.', meta: 'ETL Online', image: `${A}awards/Sponsor Honor Shield on Behalf of ETL Online as Being ETL Ambassador for Bringing the Sponsorship from My Community.jpeg` },
+    { label: 'Award', title: 'Zindigi Prize — First Runner-Up', text: 'Recognized as First Runner-Up at the Zindigi Prize event at MUET SZAB Campus.', meta: 'MUET SZAB · Zindigi Prize', image: 'assets/Safiullah-Korai-And-Team-Recieving-First-Runner-Up-Award-At-MUETSZAB-Zindigi-Prize-Event.jpg' }
   ];
 
   const programs = [
-    { label: 'Leadership Program', title: 'Aspire Leaders Program', text: 'Completed the 2024 Aspire Leaders Program across its three stages, with personal and professional development, educator-led masterclasses and Aspire Horizons.', meta: 'Aspire Institute · 2024', image: `${A}programs/safiullah_korai_alp_2024_certificate_of_completion.png` },
+    { label: 'Leadership Program', title: 'Aspire Leaders Program', text: 'Completed the 2024 Aspire Leaders Program across its three stages, with personal and professional development, educator-led masterclasses and Aspire Horizons.', meta: 'Aspire Institute · 2024', image: `${A}programs/safiullah_korai_alp_2024_certificate_of_completion.png`, url: 'https://savvyfellows.com/profile/safiullahkorai', linkText: '' },
     { label: 'AI Program', title: 'ACT AI — Cycle 1', text: 'Completed the eight-week ACT AI National AI Training Programme covering AI foundations, generative AI, agentic AI, AI tools and productivity, and freelancing with AI.', meta: 'ACT AI · 2026', image: `${A}programs/ACT AI Certificate.png` },
-    { label: 'Fellowship', title: 'Savvy Fellowship', text: 'Selected for the Savvy global fellowship program for entrepreneurs.', meta: 'Savvy · Fellowship' },
     { label: 'AI Learning', title: '1 Million Prompters', text: 'Completed the One Million Prompters initiative focused on practical prompt-engineering skills under the UAE AI initiative.', meta: 'Dubai Future Foundation · UAE' }
+  ];
+
+  const internshipsFellowships = [
+    { label: 'Fellowship', title: 'Savvy Fellowship', text: 'Selected for the Savvy global fellowship program for entrepreneurs.', meta: 'Savvy · Global Fellowship Program', image: `${E}Savvy-Fellowship-logo-on-scholarships.af_.png`, url: 'https://savvyfellows.com/profile/safiullahkorai', linkText: 'View fellowship profile ↗' },
+    { label: 'Internship', title: 'FlyRank', text: 'Internship engagement with FlyRank.', meta: 'FlyRank · Internship', image: `${E}flyrank-engagement-letter.png` }
   ];
 
   const certifications = [
     { label: 'Membership', title: 'Pakistan Freelancers Association', text: 'Professional membership with PAFLA, connecting my work with Pakistan’s freelancing ecosystem.', meta: 'PAFLA · Member · 2026', image: `${A}community/Safiullah_Korai_PAFLA_Certificate_of_Membership_2026.png` },
-    { label: 'Community Recognition', title: 'Microsoft Learn Student Ambassador', text: 'Recognition from my MLSA journey. The different certificates are grouped together instead of creating repetitive cards.', meta: 'Microsoft · MLSA', images: [`${A}community/Safiullah-Korai-Alpha-Microsoft-Student-Ambassador-Certificate.png`, `${A}community/Safiullah-Korai-Beta-Microsoft-Student-Ambassador-Certificate.png`, `${A}community/Safiullah-Korai-New-Microsoft-Student-Ambassador-Certificate.jpg`, `${A}community/Safiullah-Korai-Onboarding-Certificate-for-MLSA-YE.jpg`] }
+    { label: 'Community Recognition', title: 'Microsoft Learn Student Ambassador', text: 'Recognition from my MLSA journey. The different certificates are grouped together instead of creating repetitive cards.', meta: 'Microsoft · MLSA', images: [`${A}community/Safiullah-Korai-New-Microsoft-Student-Ambassador-Certificate.jpg`, `${A}community/Safiullah-Korai-Alpha-Microsoft-Student-Ambassador-Certificate.png`, `${A}community/Safiullah-Korai-Beta-Microsoft-Student-Ambassador-Certificate.png`, `${A}community/Safiullah-Korai-Onboarding-Certificate-for-MLSA-YE.jpg`] }
+  ];
+
+  const memberships = [
+    { label: 'Membership', title: 'Pakistan Freelancers Association (PAFLA)', text: 'Professional membership with the Pakistan Freelancers Association.', meta: 'PAFLA · 2026', image: `${A}community/Safiullah_Korai_PAFLA_Certificate_of_Membership_2026.png` },
+    { label: 'Membership', title: 'IAENG', text: 'Member of the International Association of Engineers.', meta: 'International Association of Engineers' }
   ];
 
   const badges = [
-    { title: 'Azure Database for MySQL — Emerald Contributor', image: `${A}badges/azure-database-for-mysql-emerald-contributor.png` },
-    { title: 'Azure Database for MySQL — Gold Contributor', image: `${A}badges/azure-database-for-mysql-gold-contributor.png` },
-    { title: 'Azure Responsible AI Workshop Coach', image: `${A}badges/azure-responsible-ai-workshop-coach.png` },
-    { title: 'Microsoft Learn Student Ambassadors — Cloud Skills Challenge', image: `${A}badges/microsoft-learn-student-ambassadors-cloud-skills-ch.png` },
-    { title: 'Prompt Design in Vertex AI', image: `${A}badges/prompt-design-in-vertex-ai-skill-badge.png` },
+    { title: 'Postman API Fundamentals Student Expert', image: `${A}badges/Postman_API_Fundamentals_Student_Expert.png`, verify: 'https://badges.parchment.com/public/assertions/TyCya8kbRvSjs-ZZzw9p2A', verifyLabel: 'Verify Postman badge ↗' },
+    { title: 'Microsoft Learn Student Ambassadors — Cloud Skills Challenge Event Host', image: `${A}badges/microsoft-learn-student-ambassadors-cloud-skills-ch.png`, verify: 'https://www.credly.com/badges/b84b5b92-c11c-4960-b6b5-8c9110d62b14/public_url', verifyLabel: 'Verify on Credly ↗' },
+    { title: 'Azure Responsible AI Workshop — Coach', image: `${A}badges/azure-responsible-ai-workshop-coach.png`, verify: 'https://www.credly.com/badges/9702d39b-f963-453a-a849-f90f8d2f15ae', verifyLabel: 'Verify on Credly ↗' },
+    { title: 'Azure Database for MySQL — Emerald Contributor', image: `${A}badges/azure-database-for-mysql-emerald-contributor.png`, verify: 'https://www.credly.com/badges/195233f0-8dc0-487c-b2c1-646c197163f5/public_url', verifyLabel: 'Verify on Credly ↗' },
+    { title: 'Azure Database for MySQL — Gold Contributor', image: `${A}badges/azure-database-for-mysql-gold-contributor.png`, verify: 'https://www.credly.com/badges/5432d7fd-ac57-4249-991e-b636754bb62c/public_url', verifyLabel: 'Verify on Credly ↗' },
+    { title: 'Prompt Design in Vertex AI Skill Badge', image: `${A}badges/prompt-design-in-vertex-ai-skill-badge.png`, verify: 'https://www.credly.com/badges/cd1db20d-3031-4ad7-a481-77a917398acd/public_url', verifyLabel: 'Verify on Credly ↗' },
     { title: 'Aspire Leaders — Module 1', image: `${A}badges/safiullah_korai_module_1_badge___2024_09_13_18_28_22.png` },
     { title: 'Aspire Leaders — Module 2', image: `${A}badges/safiullah_korai_module_2_badge___2024_10_11_16_26_19.png` },
     { title: 'Aspire Leaders — Module 3', image: `${A}badges/safiullah_korai_module_3_badge___2024_11_19_18_24_34.png` }
@@ -43,7 +54,6 @@
     { label: 'Community Role', title: 'Data Seekho Ambassador', text: 'Ambassador work around data learning and educational initiatives, including the Power BI collaboration with MLSA.', meta: 'Data Seekho' },
     { label: 'Community Role', title: 'GSSoC Mentor & Ambassador', text: 'Mentorship and ambassador work through GirlScript Summer of Code, including the open-source workshop collaboration.', meta: 'GSSoC · 2024' },
     { label: 'Community Role', title: 'ETL Online', text: 'Community involvement with Empowerment Through Learning, including the Winter Microsoft Learning initiative carried out through the MLSA × ETL collaboration.', meta: 'Empowerment Through Learning' },
-    { label: 'Membership', title: 'IAENG', text: 'Member of the International Association of Engineers.', meta: 'Professional Membership' },
     { label: 'Community Story', title: "OpenHack'25", text: 'A student-led technology conference and hackathon at MUET SZAB Campus Khairpur. My work included partnerships, sponsorship communication, branding direction and strategic outreach. I also helped connect ETL with the event as an official sponsor and support partner.', meta: 'MUET SZAB Campus · October 2025', url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh', linkText: 'Read the full HackerNoon story ↗' }
   ];
 
@@ -56,14 +66,16 @@
     return `<div class="achievement-carousel" data-carousel="${id}" aria-label="${esc(title)} photo carousel"><div class="achievement-carousel-track">${images.map((image, index) => `<img class="achievement-slide ${index === 0 ? 'is-active' : ''}" src="${esc(asset(image))}" alt="${esc(title)} — photo ${index + 1}" loading="lazy">`).join('')}</div>${images.length > 1 ? `<button class="carousel-control carousel-prev" type="button" data-carousel-prev="${id}" aria-label="Previous photo">‹</button><button class="carousel-control carousel-next" type="button" data-carousel-next="${id}" aria-label="Next photo">›</button><div class="carousel-dots">${images.map((_, index) => `<button class="carousel-dot ${index === 0 ? 'is-active' : ''}" type="button" data-carousel-dot="${id}" data-slide="${index}" aria-label="Show photo ${index + 1}"></button>`).join('')}</div>` : ''}</div>`;
   };
   const card = (item, kind) => `<article class="card achievement-detail-card reveal">${item.images ? carousel(item.images, item.title) : item.image ? `<div class="achievement-card-media"><img src="${esc(asset(item.image))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}<div class="achievement-detail-top"><span class="mini-label">${esc(item.label || kind)}</span>${item.meta ? `<span class="achievement-detail-meta">${esc(item.meta)}</span>` : ''}</div><h3>${esc(item.title)}</h3>${item.text ? `<p>${esc(item.text)}</p>` : ''}${item.linkText && item.url ? `<a class="text-link" href="${esc(item.url)}" target="_blank" rel="noopener">${esc(item.linkText)}</a>` : ''}</article>`;
-  const badgeCard = (item) => `<article class="card badge-card reveal"><div class="badge-image"><img src="${esc(asset(item.image))}" alt="${esc(item.title)}" loading="lazy"></div><h3>${esc(item.title)}</h3><a class="text-link" href="https://www.credly.com/users/safiullah-korai" target="_blank" rel="noopener">Verify on Credly ↗</a></article>`;
+  const badgeCard = (item) => `<article class="card badge-card reveal"><div class="badge-image"><img src="${esc(asset(item.image))}" alt="${esc(item.title)}" loading="lazy"></div><h3>${esc(item.title)}</h3>${item.verify ? `<a class="text-link" href="${esc(item.verify)}" target="_blank" rel="noopener">${esc(item.verifyLabel || 'Verify ↗')}</a>` : ''}</article>`;
   const section = (kicker, title, intro, content) => `<section class="section achievement-section"><div class="container"><div class="section-head"><div><span class="kicker">${esc(kicker)}</span><h2>${esc(title)}</h2></div></div>${intro ? `<p class="section-intro achievement-section-intro">${esc(intro)}</p>` : ''}${content}</div></section>`;
   function setupCarousels() { document.querySelectorAll('.achievement-carousel').forEach((carouselEl) => { const slides = [...carouselEl.querySelectorAll('.achievement-slide')]; const dots = [...carouselEl.querySelectorAll('.carousel-dot')]; let current = 0; const show = (next) => { current = (next + slides.length) % slides.length; slides.forEach((slide, index) => slide.classList.toggle('is-active', index === current)); dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current)); }; carouselEl.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(current - 1)); carouselEl.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(current + 1)); dots.forEach((dot) => dot.addEventListener('click', () => show(Number(dot.dataset.slide)))); }); }
   function render() { const mount = document.querySelector('[data-achievement-sections]'); if (!mount) return; mount.innerHTML = [
     section('Awards', 'Awards & wins', 'A dedicated place for awards, prizes and competitive achievements.', `<div class="grid-3">${awards.map((item) => card(item, 'Award')).join('')}</div>`),
     section('Programs', 'Programs', 'Fellowships, leadership programs and selective learning initiatives that became meaningful parts of the journey.', `<div class="grid-3">${programs.map((item) => card(item, 'Program')).join('')}</div>`),
+    section('Experience', 'Internships & Fellowships', 'Professional internship and fellowship experiences, kept together because both represent selective opportunities and practical growth.', `<div class="grid-3">${internshipsFellowships.map((item) => card(item, 'Experience')).join('')}</div>`),
     section('Certifications', 'Certifications & recognition', 'Formal credentials and recognition, grouped here instead of being pushed onto a separate certificates page.', `<div class="grid-3">${certifications.map((item) => card(item, 'Certification')).join('')}</div>`),
-    section('Badges', 'Digital badges', 'The actual badge artwork stored in the repository, with verification available through Credly.', `<div class="badge-grid">${badges.map(badgeCard).join('')}</div><div class="achievement-profile-links"><a class="btn btn-secondary" href="https://www.credly.com/users/safiullah-korai" target="_blank" rel="noopener">View all badges on Credly ↗</a></div>`),
+    section('Memberships', 'Memberships', 'Professional and community memberships that I hold or have earned.', `<div class="grid-3">${memberships.map((item) => card(item, 'Membership')).join('')}</div>`),
+    section('Badges', 'Digital badges', 'Digital credentials with direct verification links where available.', `<div class="badge-grid">${badges.map(badgeCard).join('')}</div><div class="achievement-profile-links"><a class="btn btn-secondary" href="https://www.credly.com/users/safiullah-korai" target="_blank" rel="noopener">View all badges on Credly ↗</a></div>`),
     section('Community', 'Community & leadership', 'The work behind the roles. These initiatives were not simply events I attended. They are things I organized, led, spoke at or contributed to through MLSA, ETL Online, Data Seekho and GSSoC.', `<div class="grid-3">${community.map((item) => card(item, 'Community')).join('')}</div><div class="achievement-profile-links"><a class="btn btn-secondary" href="https://www.linkedin.com/in/safiullah-korai" target="_blank" rel="noopener">More community experience on LinkedIn ↗</a><a class="btn btn-secondary" href="https://www.instagram.com/safiullah.korai" target="_blank" rel="noopener">Event updates on Instagram ↗</a></div>`)
   ].join(''); setupCarousels(); mount.querySelectorAll('.reveal').forEach((element) => { if (window.observer) window.observer.observe(element); requestAnimationFrame(() => element.classList.add('visible')); }); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render, { once: true }); else render();
