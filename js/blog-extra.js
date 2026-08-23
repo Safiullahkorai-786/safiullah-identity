@@ -2,7 +2,7 @@
   const posts = [
     { platform: 'SafiullahKorai.com', title: 'Why I Switched From Being a Software Engineer to AI Engineer', excerpt: 'Why I am moving toward AI Engineering without leaving Software Engineering behind. The foundation stays, the direction expands.', url: 'blog/why-i-switched-from-software-engineer-to-ai-engineer.html', thumbnail: 'assets/blog/why-i-switched-software-engineer-to-ai-engineer.svg', featured: true, internal: true, date: 'Aug 17, 2026', readTime: '8 min read', tags: ['AI', 'Career', 'Software Engineering', 'Developer Journey'] },
     { platform: 'Medium', title: 'Who Is Safiullah Korai? Flutter Developer Today, AI Engineer Tomorrow.', excerpt: 'A personal introduction to my work, direction and journey toward AI Engineering.', url: 'https://medium.com/@safiullahkorai/who-is-safiullah-korai-flutter-developer-today-ai-engineer-tomorrow-8c49ba9847e6', featured: true, tags: ['AI', 'Flutter', 'Career', 'Personal Brand'] },
-    { platform: 'Medium', title: 'The Experience Trap Is Breaking the Next Generation of Talent', excerpt: 'Thoughts on experience, opportunity and how the next generation of talent gets overlooked.', url: 'https://medium.com/@safiullahkorai/the-experience-trap-is-breaking-the-next-generation-of-talent-b6a64dff79ba', featured: true, tags: ['Career', 'Developers', 'Opportunity'] },
+    { platform: 'Medium', title: 'The Experience Trap Is Breaking the Next Generation of Talent', excerpt: 'Thoughts on experience, opportunity and how the next generation of talent gets overlooked.', url: 'https://medium.com/@safiullahkorai/the-experience-trap-is-breaking-the-next-generation-of-talent-b6a64dff79ba', tags: ['Career', 'Developers', 'Opportunity'] },
     { platform: 'Medium', title: 'Bento Me: The Website Without Coding', excerpt: 'A look at building a personal web presence without starting from a traditional coding workflow.', url: 'https://medium.com/@safiullahkorai/bento-me-the-website-without-coding-37ef4ed15626', tags: ['Web Development', 'Personal Brand', 'No-Code'] },
     { platform: 'HackerNoon', title: 'How Stitch Helps Flutter Developers Design Faster', excerpt: 'Exploring how Google Stitch can speed up interface ideation for Flutter developers.', url: 'https://hackernoon.com/how-stitch-helps-flutter-developers-design-faster', tags: ['Flutter', 'UI/UX', 'AI Tools', 'Development'] },
     { platform: 'HackerNoon', title: 'Google Stitch Is Changing UI/UX Design in 2026', excerpt: 'A look at how AI-assisted design workflows are changing the way developers think about interfaces.', url: 'https://hackernoon.com/google-stitch-is-changing-uiux-design-in-2026', tags: ['AI', 'UI/UX', 'Design', 'Development'] },
@@ -13,7 +13,7 @@
     { platform: 'HackerNoon', title: 'How Learning in Public Speeds Up Developer Growth', excerpt: 'How sharing the learning process can create feedback loops, accountability and opportunities.', url: 'https://hackernoon.com/how-learning-in-public-speeds-up-developer-growth', tags: ['Learning', 'Developers', 'Personal Brand'] },
     { platform: 'HackerNoon', title: 'Why Developers Can No Longer Afford to Be Invisible Online', excerpt: 'A case for making your work discoverable in an increasingly public technical ecosystem.', url: 'https://hackernoon.com/why-developers-can-no-longer-afford-to-be-invisible-online', tags: ['Personal Brand', 'Career', 'Developers'] },
     { platform: 'HackerNoon', title: 'Google I/O 2026 Foreshadowed a World Without Traditional Apps', excerpt: 'Thoughts on the shift toward AI-native experiences and what it could mean for developers.', url: 'https://hackernoon.com/google-io-2026-foreshadowed-a-world-without-traditional-apps', tags: ['AI', 'Development', 'Technology'] },
-    { platform: 'HackerNoon', title: "We Built a Tech Conference Where No One Expected It — OpenHack'25 and a Campus in Interior Sindh", excerpt: "Featured story: organizing OpenHack'25 and helping bring a major developer event to MUET SZAB Campus in interior Sindh.", url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh', tags: ['Community', 'Events', 'Developers', 'Leadership'] }
+    { platform: 'HackerNoon', title: "We Built a Tech Conference Where No One Expected It — OpenHack'25 and a Campus in Interior Sindh", excerpt: "Featured story: organizing OpenHack'25 and helping bring a major developer event to MUET SZAB Campus in interior Sindh.", url: 'https://hackernoon.com/we-built-a-tech-conference-where-no-one-expected-it-openhack25-and-a-campus-in-interior-sindh', featured: true, tags: ['Community', 'Events', 'Developers', 'Leadership'] }
   ];
 
   const myArticles = posts.filter((post) => post.internal === true);
@@ -30,92 +30,18 @@
   const search = document.querySelector('[data-blog-search]');
   const isHome = document.querySelector('[data-blog-page="home"]') !== null;
 
-  function orderedTags() {
-    return [...originalTags].sort((a, b) => {
-      const selectedA = selectedTags.has(a), selectedB = selectedTags.has(b);
-      if (selectedA !== selectedB) return selectedA ? -1 : 1;
-      return originalTags.indexOf(a) - originalTags.indexOf(b);
-    });
-  }
-
-  function renderFilters() {
-    if (!filters) return;
-    filters.innerHTML = orderedTags().map((tag) => `<button class="blog-filter${selectedTags.has(tag) ? ' active' : ''}" type="button" data-tag="${escapeHtml(tag)}" aria-pressed="${selectedTags.has(tag)}">${escapeHtml(tag)}</button>`).join('');
-    filters.querySelectorAll('[data-tag]').forEach((button) => button.addEventListener('click', () => {
-      const tag = button.dataset.tag;
-      if (selectedTags.has(tag)) selectedTags.delete(tag); else selectedTags.add(tag);
-      renderFilters(); render();
-    }));
-    if (filterCount) { filterCount.textContent = selectedTags.size; filterCount.hidden = selectedTags.size === 0; }
-    if (clearFilters) clearFilters.hidden = selectedTags.size === 0;
-  }
-
-  function matches(post) {
-    const haystack = [post.title, post.excerpt, post.platform, ...(post.tags || [])].join(' ').toLowerCase();
-    return (!searchTerm || haystack.includes(searchTerm)) && [...selectedTags].every((tag) => (post.tags || []).includes(tag));
-  }
-
+  function orderedTags() { return [...originalTags].sort((a, b) => { const selectedA = selectedTags.has(a), selectedB = selectedTags.has(b); if (selectedA !== selectedB) return selectedA ? -1 : 1; return originalTags.indexOf(a) - originalTags.indexOf(b); }); }
+  function renderFilters() { if (!filters) return; filters.innerHTML = orderedTags().map((tag) => `<button class="blog-filter${selectedTags.has(tag) ? ' active' : ''}" type="button" data-tag="${escapeHtml(tag)}" aria-pressed="${selectedTags.has(tag)}">${escapeHtml(tag)}</button>`).join(''); filters.querySelectorAll('[data-tag]').forEach((button) => button.addEventListener('click', () => { const tag = button.dataset.tag; if (selectedTags.has(tag)) selectedTags.delete(tag); else selectedTags.add(tag); renderFilters(); render(); })); if (filterCount) { filterCount.textContent = selectedTags.size; filterCount.hidden = selectedTags.size === 0; } if (clearFilters) clearFilters.hidden = selectedTags.size === 0; }
+  function matches(post) { const haystack = [post.title, post.excerpt, post.platform, ...(post.tags || [])].join(' ').toLowerCase(); return (!searchTerm || haystack.includes(searchTerm)) && [...selectedTags].every((tag) => (post.tags || []).includes(tag)); }
   function tagsMarkup(post) { return (post.tags || []).map((tag) => `<span class="article-tag">${escapeHtml(tag)}</span>`).join(''); }
-
-  function featuredCard(post) {
-    const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
-    return `<a class="card article-featured reveal" href="${escapeHtml(post.url)}"${target}><div class="article-featured-media">${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)} thumbnail" loading="eager">` : '<div class="article-featured-placeholder">Featured</div>'}</div><div class="article-featured-content"><span class="article-type">Featured · ${post.internal ? 'My Writing' : escapeHtml(post.platform)}</span><h2>${escapeHtml(post.title)}</h2><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div><div class="article-meta"><span>${post.date ? `${escapeHtml(post.date)} · ${escapeHtml(post.readTime || '')}` : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></div></a>`;
-  }
-
-  function articleCard(post) {
-    const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
-    return `<a class="card article-card reveal" href="${escapeHtml(post.url)}"${target}><div>${post.thumbnail ? `<div class="article-card-media"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy"></div>` : ''}<div class="article-card-copy"><span class="article-type">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`;
-  }
-
-  function imageOnlyCard(post) {
-    if (!post.thumbnail) return '';
-    const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
-    return `<a class="blog-image-card reveal" href="${escapeHtml(post.url)}"${target} aria-label="Read ${escapeHtml(post.title)}"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy"></a>`;
-  }
-
+  function featuredCard(post) { const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"'; return `<a class="card article-featured reveal" href="${escapeHtml(post.url)}"${target}><div class="article-featured-media">${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)} thumbnail" loading="eager">` : '<div class="article-featured-placeholder">Featured</div>'}</div><div class="article-featured-content"><span class="article-type">Featured · ${post.internal ? 'My Writing' : escapeHtml(post.platform)}</span><h2>${escapeHtml(post.title)}</h2><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div><div class="article-meta"><span>${post.date ? `${escapeHtml(post.date)} · ${escapeHtml(post.readTime || '')}` : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></div></a>`; }
+  function articleCard(post) { const target = post.internal ? '' : ' target="_blank" rel="noopener noreferrer"'; return `<a class="card article-card reveal" href="${escapeHtml(post.url)}"${target}><div>${post.thumbnail ? `<div class="article-card-media"><img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy"></div>` : ''}<div class="article-card-copy"><span class="article-type">${post.internal ? 'My Article' : `Published on ${escapeHtml(post.platform)}`}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.excerpt)}</p><div class="article-tags">${tagsMarkup(post)}</div></div></div><div class="article-meta"><span>${post.internal ? 'SafiullahKorai.com' : escapeHtml(post.platform)}</span><span class="article-link">${post.internal ? 'Read article →' : `Read on ${escapeHtml(post.platform)} ↗`}</span></div></a>`; }
   function sectionButton(label, href) { return `<div class="blog-view-more"><a href="${href}">${label} →</a></div>`; }
-
-  function render() {
-    const container = document.querySelector('[data-posts]'); if (!container) return;
-    const filtered = posts.filter(matches);
-    const filteredMine = myArticles.filter(matches);
-    const filteredElsewhere = elsewhere.filter(matches);
-    const count = document.querySelector('[data-blog-count]');
-    if (count) count.textContent = `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}`;
-
-    if (isHome) {
-      const featured = filtered.filter((post) => post.featured).slice(0, 3);
-      const mine = filteredMine.slice(0, 6);
-      const other = filteredElsewhere.slice(0, 6);
-      let html = '';
-      if (featured.length) html += `<section class="blog-section blog-featured-section"><div class="blog-section-heading"><div><h2>Featured</h2><p>A few pieces worth starting with.</p></div></div><div class="blog-featured-list">${featured.map(featuredCard).join('')}</div></section>`;
-      if (mine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-home-grid">${mine.map(articleCard).join('')}</div>${sectionButton('View all My Articles', 'view-more.html?type=my')}</section>`;
-      if (other.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-home-grid">${other.map(articleCard).join('')}</div>${sectionButton('View all Elsewhere', 'view-more.html?type=elsewhere')}</section>`;
-      container.innerHTML = html || '<div class="blog-empty">No articles matched your search. Try another keyword or tag.</div>';
-    } else {
-      const params = new URLSearchParams(window.location.search);
-      const type = params.get('type');
-      let html = '';
-      if ((!type || type === 'my') && filteredMine.length) {
-        html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-image-grid blog-my-archive-grid">${filteredMine.map(articleCard).join('')}</div></section>`;
-      }
-      if ((!type || type === 'elsewhere') && filteredElsewhere.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-grid">${filteredElsewhere.map(articleCard).join('')}</div></section>`;
-      container.innerHTML = html || '<div class="blog-empty">No articles matched your search or selected section.</div>';
-    }
-    observeReveal(container);
-  }
-
-  function observeReveal(container) {
-    container.querySelectorAll('.reveal').forEach((element) => { if (window.observer) window.observer.observe(element); requestAnimationFrame(() => element.classList.add('visible')); });
-  }
-
-  if (filterToggle && filterPanel) filterToggle.addEventListener('click', () => {
-    const open = filterToggle.getAttribute('aria-expanded') === 'true';
-    filterToggle.setAttribute('aria-expanded', String(!open)); filterPanel.hidden = open;
-  });
+  function render() { const container = document.querySelector('[data-posts]'); if (!container) return; const filtered = posts.filter(matches); const filteredMine = myArticles.filter(matches); const filteredElsewhere = elsewhere.filter(matches); const count = document.querySelector('[data-blog-count]'); if (count) count.textContent = `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}`; if (isHome) { const featured = filtered.filter((post) => post.featured).slice(0, 3); const mine = filteredMine.slice(0, 6); const other = filteredElsewhere.slice(0, 6); let html = ''; if (featured.length) html += `<section class="blog-section blog-featured-section"><div class="blog-section-heading"><div><h2>Featured</h2><p>A few pieces worth starting with.</p></div></div><div class="blog-featured-list">${featured.map(featuredCard).join('')}</div></section>`; if (mine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-home-grid">${mine.map(articleCard).join('')}</div>${sectionButton('View all My Articles', 'view-more.html?type=my')}</section>`; if (other.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-home-grid">${other.map(articleCard).join('')}</div>${sectionButton('View all Elsewhere', 'view-more.html?type=elsewhere')}</section>`; container.innerHTML = html || '<div class="blog-empty">No articles matched your search. Try another keyword or tag.</div>'; } else { const params = new URLSearchParams(window.location.search); const type = params.get('type'); let html = ''; if ((!type || type === 'my') && filteredMine.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>My Articles</h2><p>Articles published here on SafiullahKorai.com.</p></div></div><div class="blog-image-grid blog-my-archive-grid">${filteredMine.map(articleCard).join('')}</div></section>`; if ((!type || type === 'elsewhere') && filteredElsewhere.length) html += `<section class="blog-section"><div class="blog-section-heading"><div><h2>Elsewhere</h2><p>Writing published on Medium, HackerNoon and other platforms.</p></div></div><div class="blog-grid">${filteredElsewhere.map(articleCard).join('')}</div></section>`; container.innerHTML = html || '<div class="blog-empty">No articles matched your search or selected section.</div>'; } observeReveal(container); }
+  function observeReveal(container) { container.querySelectorAll('.reveal').forEach((element) => { if (window.observer) window.observer.observe(element); requestAnimationFrame(() => element.classList.add('visible')); }); }
+  if (filterToggle && filterPanel) filterToggle.addEventListener('click', () => { const open = filterToggle.getAttribute('aria-expanded') === 'true'; filterToggle.setAttribute('aria-expanded', String(!open)); filterPanel.hidden = open; });
   if (clearFilters) clearFilters.addEventListener('click', () => { selectedTags.clear(); renderFilters(); render(); });
   if (search) search.addEventListener('input', (event) => { searchTerm = event.target.value.trim().toLowerCase(); render(); });
-
   function init() { renderFilters(); render(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
 })();
